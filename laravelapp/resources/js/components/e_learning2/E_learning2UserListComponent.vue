@@ -70,7 +70,7 @@ export default {
           cancel: this.doNothing(),
           message: {
             title: '確認',
-            body: 'よろしいですか？'
+            body: 'この生徒の情報をすべて削除します。よろしいですか？'
           }
       };
     }

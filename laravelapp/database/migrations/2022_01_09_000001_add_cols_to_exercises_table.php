@@ -27,6 +27,6 @@ class AddColsToExercisesTable extends Migration
     {
         Schema::table('exercises', function (Blueprint $table) {
           $table->dropColumn('e_groups_id');
-       });
+        });
     }
 }

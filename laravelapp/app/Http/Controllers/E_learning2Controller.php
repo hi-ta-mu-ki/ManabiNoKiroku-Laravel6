@@ -91,12 +91,13 @@ class E_learning2Controller extends Controller
     return E_class::whereIn('id', $items)->get();
   }
 
-  public function class_list($e_classes_id)
+  public function member_list($e_classes_id)
   {
-    return E_member::where('e_classes_id', $e_classes_id)->with('user')->get();
+    $member = E_member::where('e_classes_id', $e_classes_id)->with('user')->orderBy('user_id', 'asc')->get();
+    return $member->sortBy('user.role')->values();
   }
 
-  public function class_list_delete($id)
+  public function member_list_delete($id)
   {
     E_member::where('user_id', $id)->delete();
   }
@@ -117,7 +118,8 @@ class E_learning2Controller extends Controller
   {
     $selected_titles = $request->input();
     $i = 0;
-    $section_titles = Exercise::where('q_no', 0)->get();
+    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
+    $section_titles = Exercise::whereIn('e_groups_id', $e_groups_id)->where('q_no', 0)->get();
     foreach($section_titles as $section_title){
       $item = E_setting::where('e_classes_id', $e_classes_id)->where('no', $section_title->no)->first();
       if($item == null){
@@ -312,11 +314,87 @@ class E_learning2Controller extends Controller
         Exercise::insert($array_partial[$i]);
       }
     }
+    return response($request, 201);
+  }
+
+  public function group_index()
+  {
+    return E_group::all();
+  }
+
+  public function group_show(E_group $id)
+  {
+    return $id;
+  }
+
+  public function group_store(Request $request)
+  {
+    $group = new E_group;
+    $group->name = $request->name;
+    $group->save();
+    return response($request, 201);
+  }
+
+  public function group_update(Request $request, E_group $id)
+  {
+    $id->update($request->all());
+    return $id;
+  }
+
+  public function group_destroy(E_group $id)
+  {
+    $id->delete();
+    return $id;
+  }
+
+  public function class_index($e_groups_id)
+  {
+    return E_class::where('e_groups_id', $e_groups_id)->get();
+  }
+
+  public function class_show(E_class $id)
+  {
+    return $id;
+  }
+
+  public function class_store(Request $request)
+  {
+    if($request->pass_code != null){
+      $e_class = E_class::where('pass_code', $request->pass_code)->first();
+      if($e_class != null) return response($request, 400);
+    }
+    $class = new E_class;
+    $class->e_groups_id = $request->e_groups_id;
+    $class->name = $request->name;
+    $class->pass_code = $request->pass_code;
+    $class->save();
+    return response($request, 201);
+  }
+
+  public function class_update(Request $request, E_class $id)
+  {
+    if($request->pass_code != null){
+      $e_class = E_class::where('pass_code', $request->pass_code)->first();
+      if($e_class != null) return response($request, 400);
+    }
+    $id->update($request->all());
+    return response($id, 200);
+  }
+
+  public function class_destroy(E_class $id)
+  {
+    $id->delete();
+    return $id;
   }
 
   public function user_index()
   {
     return User::all();
+  }
+
+  public function user_index2()
+  {
+    return User::where('role', '!=', 1)->select('id', 'name')->get();
   }
 
   public function user_show(User $id)
@@ -477,9 +555,10 @@ class E_learning2Controller extends Controller
     return  response($request, 201);
   }
 
-  public function answer_list($no)
+  public function answer_list($e_groups_id, $no)
   {
-    $answers = E_answer::where('no', $no)->orderBy('s_id', 'asc')->orderBy('user_id', 'asc')->orderBy('q_no', 'asc')->with('user')->get();
+    $e_classes_id = E_class::where('e_groups_id', $e_groups_id)->select('id')->getQuery();
+    $answers = E_answer::whereIn('e_classes_id', $e_classes_id)->where('no', $no)->orderBy('s_id', 'asc')->orderBy('user_id', 'asc')->orderBy('q_no', 'asc')->with('user')->get();
     $answer_lists = array(array());
     $i = -1;
     $tmp_s_id = 0;
@@ -526,6 +605,34 @@ class E_learning2Controller extends Controller
   public function answer_delete($id)
   {
     E_answer::where('user_id', $id)->delete();
+  }
+
+  public function class_join(Request $request)
+  {
+    if($request->pass_code != null){
+      $e_class = E_class::where('pass_code', $request->pass_code)->first();
+      if($e_class == null) return response($request, 400);
+      else{
+        $e_member = new E_member;
+        $e_member->user_id = Auth::user()->id;
+        $e_member->e_classes_id = $e_class->id;
+        $e_member->save();
+        return response($request, 201);
+      }
+    }
+  }
+
+  public function class_join2($e_classes_id, Request $request)
+  {
+    $user = E_member::where('e_classes_id', $e_classes_id)->where('user_id', $request->id)->first();
+    if($user == null){
+      $e_member = new E_member;
+      $e_member->user_id = $request->id;
+      $e_member->e_classes_id = $e_classes_id;
+      $e_member->save();
+      return response($request, 201);
+    }
+    else return response($request, 400);
   }
 
 }

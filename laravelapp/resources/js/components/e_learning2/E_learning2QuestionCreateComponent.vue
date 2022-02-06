@@ -2,6 +2,21 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-sm-12">
+        <div class="row mb-1">
+          <table border=1><tr><td>
+            【ヘルプ】　※HTMLのタグを使えば次のようなことなどができます。<br>
+            　・改行したいところで&lt;br&gt;という記号を入力します。<br>
+            　・上付き文字は，&lt;sup&gt;2&lt;/sup&gt;のように入力します。（例）10&lt;sup&gt;2&lt;/sup&gt;　は　10<sup>2</sup><br>
+            　・下付き文字は，&lt;sub&gt;2&lt;/sub&gt;のように入力します。（例）10&lt;sub&gt;2&lt;/sub&gt;　は　CO<sub>2</sub><br>
+            　・画像は，アップロードしたファイル名を用いて，&lt;img src="/storage/ファイル名"&gt;のように，挿入したい部分に入力します。
+          </td></tr></table>
+        </div>
+        <div class="row mb-1">
+          <button class="btn btn-success" @click="showForm = ! showForm">Upload Image</button>
+        </div>
+        <div class="row mb-1">
+          <E_learning2PhotoUploadForm v-model="showForm" />
+        </div>
         <form @submit.prevent="submit">
           <div class="form-group row">
             <label for="e_groups_id" class="col-sm-1 col-form-label">Group</label>
@@ -76,12 +91,17 @@
 </template>
 
 <script>
+import E_learning2PhotoUploadForm from './E_learning2PhotoUploadForm.vue'
 export default {
+  components: {
+    E_learning2PhotoUploadForm
+  },
   data: function () {
     return {
       groups_menus: [],
       e_groups_id: 0,
-      question: {}
+      question: {},
+      showForm: false
     }
   },
   methods: {

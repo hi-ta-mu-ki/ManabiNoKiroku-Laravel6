@@ -27,6 +27,6 @@ class AddColsToEAnswersTable extends Migration
     {
         Schema::table('e_anwsers', function (Blueprint $table) {
           $table->dropColumn('e_classes_id');
-       });
+        });
     }
 }

@@ -27,10 +27,17 @@ import E_learning2QuestionCreateComponent from "./components/e_learning2/E_learn
 import E_learning2QuestionEditComponent from "./components/e_learning2/E_learning2QuestionEditComponent";
 import E_learning2QuestionCsvComponent from "./components/e_learning2/E_learning2QuestionCsvComponent";
 import E_learning2AnswerListComponent from "./components/e_learning2/E_learning2AnswerListComponent";
-import E_learning2ClassListComponent from "./components/e_learning2/E_learning2ClassListComponent";
+import E_learning2MemberListComponent from "./components/e_learning2/E_learning2MemberListComponent";
 import E_learning2QuestionSettingComponent from "./components/e_learning2/E_learning2QuestionSettingComponent";
+import E_learning2GroupListComponent from "./components/e_learning2/E_learning2GroupListComponent";
+import E_learning2GroupCreateComponent from "./components/e_learning2/E_learning2GroupCreateComponent";
+import E_learning2GroupEditComponent from "./components/e_learning2/E_learning2GroupEditComponent";
+import E_learning2ClassListComponent from "./components/e_learning2/E_learning2ClassListComponent";
+import E_learning2ClassCreateComponent from "./components/e_learning2/E_learning2ClassCreateComponent";
+import E_learning2ClassEditComponent from "./components/e_learning2/E_learning2ClassEditComponent";
 import E_learning2StudentComponent from "./components/e_learning2/E_learning2StudentComponent";
 import E_learning2Question2Component from "./components/e_learning2/E_learning2Question2Component";
+import E_learning2ClassJoinComponent from "./components/e_learning2/E_learning2ClassJoinComponent";
 import E_learning2AdminComponent from "./components/e_learning2/E_learning2AdminComponent";
 import E_learning2UserListComponent from "./components/e_learning2/E_learning2UserListComponent";
 import E_learning2UserCreateComponent from "./components/e_learning2/E_learning2UserCreateComponent";
@@ -112,14 +119,53 @@ const router = new VueRouter({
             props: true
           },
           {
-            path: 'class_list/:e_classes_id',
-            name: 'tc.class',
-            component: E_learning2ClassListComponent
+            path: 'member_list',
+            name: 'tc.member',
+            component: E_learning2MemberListComponent
           },
           {
             path: 'setting',
             name: 'tc.setting',
             component: E_learning2QuestionSettingComponent
+          },
+          {
+            path: 'group/list',
+            name: 'tc.grouplist',
+            component: E_learning2GroupListComponent
+          },
+          {
+            path: 'group/create',
+            name: 'tc.groupcreate',
+            component: E_learning2GroupCreateComponent
+          },
+          {
+            path: 'group/:groupId',
+            name: 'tc.groupedit',
+            component: E_learning2GroupEditComponent,
+            props: true
+          },
+          {
+            path: 'class/list/:groupId',
+            name: 'tc.classlist',
+            component: E_learning2ClassListComponent,
+            props: true
+          },
+          {
+            path: 'class/create/:groupId',
+            name: 'tc.classcreate',
+            component: E_learning2ClassCreateComponent,
+            props: true
+          },
+          {
+            path: 'class/:groupId',
+            name: 'tc.classedit',
+            component: E_learning2ClassEditComponent,
+            props: true
+          },
+          {
+            path: 'join',
+            name: 'tc.join',
+            component: E_learning2ClassJoinComponent
           },
         ]
     },
@@ -132,7 +178,12 @@ const router = new VueRouter({
             name: 'st.question2',
             component: E_learning2Question2Component,
             props: true
-          }
+          },
+          {
+            path: 'join',
+            name: 'st.join',
+            component: E_learning2ClassJoinComponent
+          },
         ]
     },
     {

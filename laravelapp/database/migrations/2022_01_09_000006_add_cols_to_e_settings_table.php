@@ -27,6 +27,6 @@ class AddColsToESettingsTable extends Migration
     {
         Schema::table('e_settings', function (Blueprint $table) {
           $table->dropColumn('e_classes_id');
-       });
+        });
     }
 }

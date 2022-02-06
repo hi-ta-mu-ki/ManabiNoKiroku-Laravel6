@@ -1,69 +1,61 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="bg-primary mb-1">
       <div class="p-1 mb-1 bg-primary text-white form-inline row">
-        <div class="form-group col-2">
-          <label for="selectclass" class="mr-2">Select Class:</label>
-          <select class="form-control" id="selectclass" @change="jump" v-model="e_classes_id">
-            <option v-for="classes_menu in classes_menus" :key="classes_menu.id" v-bind:value="classes_menu.id" >{{ classes_menu.name }}</option>
-          </select>
-        </div>
+        <router-link v-bind:to="{name: 'tc.classcreate', params: {groupId: groupId}}">
+          <button class="btn btn-success">Class ADD</button>
+        </router-link>
       </div>
     </div>
-    <div v-if="isClassSelect">
-      <table class="table table-hover">
-        <thead class="thead-light">
+    <table class="table table-hover">
+      <thead class="thead-light">
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Role</th>
+          <th scope="col">ID</th>
+          <th scope="col">Class Name</th>
+          <th scope="col">PassCode</th>
+          <th scope="col"></th>
           <th scope="col"></th>
         </tr>
-        </thead>
-        <tbody>
-          <tr v-for="user in users" :key="user.user.id">
-            <td>{{ user.user.name }}</td>
-            <td>
-              <div v-if="user.user.role == 1">管理者</div>
-              <div v-else-if="user.user.role == 5">教員</div>
-              <div v-else>生徒</div>
-            </td>
-            <td>
-              <button class="btn btn-danger" v-confirm="onAlert(user.user_id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      </thead>
+      <tbody>
+        <tr v-for="item in items" :key="item.id">
+          <th scope="row">{{ item.id }}</th>
+          <td>{{ item.name }}</td>
+          <td>{{ item.pass_code }}</td>
+          <td>
+            <router-link v-bind:to="{name: 'tc.classedit', params: {classId: item.id}}">
+              <button class="btn btn-success">Edit</button>
+            </router-link>
+          </td>
+          <td>
+            <button class="btn btn-danger" v-confirm="onAlert(item.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    groupId: 0
+  },
   data: function () {
     return {
-      classes_menus: [],
-      isClassSelect: false,
-      users: [],
-      e_classes_id: 0
+      items: [],
     }
   },
   methods: {
-    getClassesMenu() {
-      axios.get('/api/e_learning2/classes_menu')
+    getclasses() {
+      axios.get('/api/e_learning2/class_list/' + this.groupId)
         .then((res) => {
-          this.classes_menus = res.data;
-        });
-    },
-    getusers() {
-      axios.get('/api/e_learning2/class_list/' + this.e_classes_id)
-        .then((res) => {
-          this.users = res.data;
+          this.items = res.data;
         });
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/st/answer/' + id);
-      axios.delete('/api/e_learning2/class_list/' + id);
-      this.getusers();
+      axios.delete('/api/e_learning2/class/' + id);
+      this.getclasses();
       dialog.close();
     },
     doNothing:function() {
@@ -71,21 +63,17 @@ export default {
     onAlert:function(id) {
       let self = this;
       return {
-        ok: function(dialog){self.makeAdmin(dialog, id)},
-        cancel: this.doNothing(),
-        message: {
-          title: '確認',
-          body: '削除する生徒の成績も削除します。よろしいですか？'
-        }
+          ok: function(dialog){self.makeAdmin(dialog, id)},
+          cancel: this.doNothing(),
+          message: {
+            title: '確認',
+            body: '所属する生徒，その生徒の成績も削除します。よろしいですか？'
+          }
       };
-    },
-    jump: function() {
-      this.isClassSelect = true;
-      this.getusers();
-    },
+    }
   },
   mounted() {
-    this.getClassesMenu();
+    this.getclasses();
   }
 }
 </script>

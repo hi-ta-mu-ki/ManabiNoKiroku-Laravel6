@@ -19,11 +19,11 @@
         </div>
         <form @submit.prevent="submit">
           <div class="form-group row">
-            <label for="no" class="col-sm-1 col-form-label">S_No</label>
+            <label for="no" class="col-sm-1 col-form-label">Section_No</label>
             <input type="number" class="col-sm-1 form-control" id="no" v-model="question.no">
           </div>
           <div class="form-group row">
-            <label for="q_no" class="col-sm-1 col-form-label">Q_No</label>
+            <label for="q_no" class="col-sm-1 col-form-label">Question_No</label>
             <input type="number" class="col-sm-1 form-control" id="q_no" v-model="question.q_no">
           </div>
           <div class="form-group row">

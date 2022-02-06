@@ -35,14 +35,14 @@ export default {
   },
   methods: {
     getQuestions() {
-      axios.get('/api/e_learning2/tc/list/' + this.no)
+      axios.get('/api/e_learning2/tc/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
           this.questions = res.data;
           this.n = this.questions.length - 1;
         });
     },
     getAnswers() {
-      axios.get('/api/e_learning2/tc/answer/' + this.no)
+      axios.get('/api/e_learning2/tc/answer/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
           this.answers = res.data;
         });
