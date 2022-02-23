@@ -6,14 +6,26 @@
           <table class="table table-hover table-sm" ref="table">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Section</th>
-              <th scope="col">Answer Time</th>
-              <th scope="col" v-for="i in n - 3" :key="i">Q_no{{ i }}</th>
+              <th scope="col">セクションめい</th>
+              <th scope="col">かいとうじこく</th>
+              <th scope="col" v-for="i in n - 3" :key="i">もんだい{{ i }}</th>
             </tr>
             </thead>
             <tbody>
               <tr v-for="answer in getItems" :key="answer.id">
-                <td v-for="i in n - 1" :key="i">{{ answer[i] }}</td>
+                <td v-for="i in n - 1" :key="i">
+                  <div v-if="i < 3">
+                    {{ answer[i] }}
+                  </div>
+                  <div v-else class="text-center">
+                    <span v-if="answer[i]">
+                      <img src="/image/smile2_small.png" border="0">
+                    </span>
+                    <span v-else>
+                      <img src="/image/smile3_small.png" border="0">
+                    </span>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -50,7 +62,8 @@ export default {
   },
   name: 'AnswerList2',
   props: {
-    e_classes_id: 0
+    e_classes_id: 0,
+    user_id: 0
   },
   data: function () {
     return {
@@ -63,7 +76,7 @@ export default {
   },
   methods: {
     getAnswers() {
-      axios.get('/api/e_learning2/st/answer/' + this.$store.getters['auth_e_learning2/id'] + '/' + this.e_classes_id)
+      axios.get('/api/e_learning2/st/answer/' + this.user_id + '/' + this.e_classes_id)
         .then((res) => {
           this.answers = res.data;
           for(let i = 0; i < this.answers.length; i++) {

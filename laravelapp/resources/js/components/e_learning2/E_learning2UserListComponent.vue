@@ -4,10 +4,10 @@
       <thead class="thead-light">
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">E_mail</th>
-        <th scope="col">Password</th>
-        <th scope="col">Role</th>
+        <th scope="col">名前</th>
+        <th scope="col">メールアドレス</th>
+        <th scope="col">パスワード</th>
+        <th scope="col">役割</th>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -28,11 +28,11 @@
           </td>
           <td>
             <router-link v-bind:to="{name: 'ad.edit', params: {userId: user.id }}">
-              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-success">編集</button>
             </router-link>
           </td>
           <td>
-            <button class="btn btn-danger" v-confirm="onAlert(user.id)">Delete</button>
+            <button class="btn btn-danger" v-confirm="onAlert(user.id)">削除</button>
           </td>
         </tr>
       </tbody>

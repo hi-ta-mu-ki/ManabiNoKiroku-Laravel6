@@ -1,9 +1,10 @@
 <template>
   <div class="container-fluid">
+    <h2 class="title">問題実施設定</h2>
     <div class="bg-primary mb-1">
       <div class="p-1 mb-1 bg-primary text-white form-inline row">
         <div class="form-group col-2">
-          <label for="selectclass" class="mr-2">Select Class:</label>
+          <label for="selectclass" class="mr-2">クラスを選択：</label>
          <select class="form-control" id="selectclass" @change="jump" v-model="e_classes_id">
             <option v-for="classes_menu in classes_menus" :key="classes_menu.id" v-bind:value="classes_menu.id" >{{ classes_menu.name }}</option>
           </select>
@@ -26,7 +27,7 @@
                   <label :for="'section_title' + i">{{section_title.quest}}</label>
                 </td>
               </tr>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">決定</button>
             </form>
           </div>
         </tbody>

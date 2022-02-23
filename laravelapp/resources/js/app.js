@@ -27,6 +27,8 @@ import E_learning2QuestionCreateComponent from "./components/e_learning2/E_learn
 import E_learning2QuestionEditComponent from "./components/e_learning2/E_learning2QuestionEditComponent";
 import E_learning2QuestionCsvComponent from "./components/e_learning2/E_learning2QuestionCsvComponent";
 import E_learning2AnswerListComponent from "./components/e_learning2/E_learning2AnswerListComponent";
+import E_learning2AnswerList3Component from "./components/e_learning2/E_learning2AnswerList3Component";
+import E_learning2OwnerListComponent from "./components/e_learning2/E_learning2OwnerListComponent";
 import E_learning2MemberListComponent from "./components/e_learning2/E_learning2MemberListComponent";
 import E_learning2QuestionSettingComponent from "./components/e_learning2/E_learning2QuestionSettingComponent";
 import E_learning2GroupListComponent from "./components/e_learning2/E_learning2GroupListComponent";
@@ -116,6 +118,12 @@ const router = new VueRouter({
             path: 'answer/:no',
             name: 'tc.answer',
             component: E_learning2AnswerListComponent,
+            props: true
+          },
+          {
+            path: 'owner_list',
+            name: 'tc.owner',
+            component: E_learning2OwnerListComponent,
             props: true
           },
           {
@@ -214,9 +222,16 @@ const router = new VueRouter({
         ]
     },
     {
-      path: '/500',
+      path: '/e_learning2/tc/answer3/:id',
+      name: 'tc.answer3',
+      component: E_learning2AnswerList3Component,
+      props: true
+    },
+    {
+      path: '/e_learning2/500',
       component: SystemError
-    },    {
+    },
+    {
       path: '/e_learning2/*',
       component: NotFound
     },

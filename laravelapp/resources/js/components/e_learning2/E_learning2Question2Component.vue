@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="p-1 mb-3 bg-primary text-white form-inline">
       <div class="form-group">
-        <label for="selectclass" class="p-2">Select Class:</label>
+        <label for="selectclass" class="p-2">クラスをえらぶ：</label>
         <select class="form-control" id="selectclass" @change="jump1" v-model="e_classes_id">
           <option v-for="classes_menu in classes_menus" :key="classes_menu.id" v-bind:value="classes_menu.id" >{{ classes_menu.name }}</option>
         </select>
       </div>
       <div v-if="isClassSelect">
-        <button class="btn btn-warning ml-2" @click="openModal">Record</button>
-        <AnswerList2 :e_classes_id="e_classes_id" @from-child="closeModal" />
+        <button class="btn btn-warning ml-2" @click="openModal">きろく</button>
+        <AnswerList2 :e_classes_id="e_classes_id" :user_id="user_id" @from-child="closeModal" />
         <div class="form-group">
-          <label for="selectsection" class="ml-2 mr-2">Select Section:</label>
+          <label for="selectsection" class="ml-2 mr-2">セクションをえらぶ：</label>
           <select class="form-control" id="selectsection" @change="jump2" v-model="no">
             <option v-for="question in questions_menu" :key="question.no" v-bind:value="question.no" >{{ question.quest }}</option>
           </select>
@@ -20,13 +20,23 @@
     </div>
     <div class="row justify-content-center" v-if="no==null">
       <div class="col-sm-12 h1">
-        <div class="text-center">上のメニューからグループ，次にセクションを選択してください。</div>
+        <div class="text-center">うえのメニューからグループ，つぎにセクションをえらんでください。</div>
      </div>
     </div>
     <div class="row justify-content-center" v-else-if="!answered">
       <div class="col-sm-12">
-        <h3>現在{{question_num}}問中{{correct}}問正解</h3>
-        <h1><p class="badge badge-primary">第 {{ (questionIndex+1) }} 問</p></h1>
+        <h3>{{question_num}}もんちゅう{{correct}}もんせいかい
+        <span v-if="questionIndex != 0">
+          <span v-for="(smile, i) in corrects" :key="i">
+            <span v-if="smile">
+              <img src="/image/smile2.png" border="0">
+            </span>
+            <span v-else>
+              <img src="/image/smile3.png" border="0">
+            </span>
+          </span>
+        </span></h3>
+        <h1><p class="badge badge-primary">だい {{ (questionIndex + 1) }} もん</p></h1>
         <br>
         <div class="text-primary">
           <h4><span v-html="$sanitize(currentQuestion.quest)"></span></h4>
@@ -46,8 +56,16 @@
     </div>
     <div class="row justify-content-center" v-else-if="answered">
       <div class="col-sm-12">
-        <h3>現在{{question_num}}問中{{correct}}問正解</h3>
-        <h1><p class="badge badge-primary">第 {{ (questionIndex+1) }} 問</p></h1>
+        <h3>{{question_num}}もんちゅう{{correct}}もんせいかい
+        <span v-for="(smile, i) in corrects" :key="i">
+          <span v-if="smile">
+            <img src="/image/smile2.png" border="0">
+          </span>
+          <span v-else>
+            <img src="/image/smile3.png" border="0">
+          </span>
+        </span></h3>
+        <h1><p class="badge badge-primary">だい {{ (questionIndex + 1) }} もん</p></h1>
         <br>
         <div class="text-primary">
           <h4><span v-html="$sanitize(currentQuestion.quest)"></span></h4>
@@ -60,9 +78,9 @@
         </table></h4>
         <hr>
         <h4>
-          <span v-if="currentQuestion.ans == answers[questionIndex]"><div class="text-primary ml-3">あなたの解答は「{{answers[questionIndex]}}」　正解！！</div></span>
-          <span v-else><div class="text-danger ml-3">あなたの解答は「{{answers[questionIndex]}}」　不正解。。。　正解は「{{ currentQuestion.ans }}」でした。</div></span><br>
-          <h3><span class="badge badge-primary ml-3">解説</span></h3>
+          <span v-if="currentQuestion.ans == answers[questionIndex]"><div class="text-primary ml-3">あなたのこたえは「{{answers[questionIndex]}}」　せいかい！！</div></span>
+          <span v-else><div class="text-danger ml-3">あなたのこたえは「{{answers[questionIndex]}}」　まちがい。。。　せいかいは「{{ currentQuestion.ans }}」でした。</div></span><br>
+          <h3><span class="badge badge-primary ml-3">かいせつ</span></h3>
           <span v-if="currentQuestion.exp1 != null"><div class="ml-3">　1 . <span v-html="$sanitize(currentQuestion.exp1)"></span></div></span>
           <span v-if="currentQuestion.exp2 != null"><div class="ml-3">　2 . <span v-html="$sanitize(currentQuestion.exp2)"></span></div></span>
           <span v-if="currentQuestion.exp3 != null"><div class="ml-3">　3 . <span v-html="$sanitize(currentQuestion.exp3)"></span></div></span>
@@ -72,11 +90,11 @@
       </div>
       <div class="row justify-content-center" v-if="!completed">
         <span><button type="button" class="btn btn-primary btn-lg btn-block text-left"
-          @click="nextQuestion"> 次の問題 </button></span>
+          @click="nextQuestion"> つぎのもんだい </button></span>
       </div>
       <div class="row justify-content-center" v-else-if="completed">
         <div class="col-sm-12 h1">
-          <div class="text-center">このセクションの問題は終わりました。上のメニューから他のセクションを選択してください。</div>
+          <div class="text-center">このセクションのもんだいは終わりました。うえのメニューからほかのセクションをえらんでください。</div>
         </div>
       </div>
     </div>
@@ -104,9 +122,11 @@ export default {
       questions: {},
       answered: false,
       correct: 0,
+      corrects: [],
       question_num: 0,
       s_id: 0,
-      e_classes_id: 0
+      e_classes_id: 0,
+      user_id: 0
     }
   },
   methods: {
@@ -131,16 +151,20 @@ export default {
     },
     addAnswer: function(index) {
       this.answers.push(index);
-      if(this.questions[this.questionIndex].ans == index) this.correct++;
-      const formData = new FormData()
-      formData.append('e_classes_id', this.e_classes_id)
-      formData.append('s_id', this.s_id)
-      formData.append('no', this.no)
-      formData.append('q_no', this.questionIndex + 1)
-      let correct
-      if(this.questions[this.questionIndex].ans == index) correct = 1
-      else correct = 0
-      formData.append('correct', correct)
+      const formData = new FormData();
+      formData.append('user_id', this.user_id);
+      formData.append('e_classes_id', this.e_classes_id);
+      formData.append('s_id', this.s_id);
+      formData.append('no', this.no);
+      formData.append('q_no', this.questionIndex + 1);
+      let correct;
+      if(this.questions[this.questionIndex].ans == index){
+        correct = 1;
+        this.correct++;
+      }
+      else correct = 0;
+      this.corrects.push(correct);
+      formData.append('correct', correct);
       axios.post('/api/e_learning2/st/answer', formData);
       return this.answered = true;
     },
@@ -190,6 +214,7 @@ export default {
   },
   mounted() {
     this.getClassesMenu();
+    this.user_id = this.$store.getters['auth_e_learning2/id']
   }
 }
 </script>

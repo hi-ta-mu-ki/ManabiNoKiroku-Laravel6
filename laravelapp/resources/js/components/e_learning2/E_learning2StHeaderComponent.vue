@@ -1,12 +1,13 @@
 <template>
   <div class="container-fluid bg-primary mb-3 text-white">
     <nav class="navbar navbar-primary">
-      <span class="navbar-brand mb-0 h1">E-Learning</span>
+      <span class="navbar-brand mb-0 h1">まなびのきろく３　きょうもがんばろう！
+      <img src="/image/student_small.gif" border="0"></span>
       <div class="col-sm-2">
         <router-link v-bind:to="{name: 'st.join'}">
-          <button class="btn btn-success">Join New Class</button>
+          <button class="btn btn-success">クラスにさんか</button>
         </router-link>
-        <button class="btn btn-secondary" @click="logout">Logout</button>
+        <button class="btn btn-secondary" @click="logout">ログアウト</button>
       </div>
     </nav>
   </div>

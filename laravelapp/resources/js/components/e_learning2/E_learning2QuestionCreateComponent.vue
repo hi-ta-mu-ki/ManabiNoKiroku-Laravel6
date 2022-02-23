@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <h2 class="title">問題作成</h2>
     <div class="row justify-content-center">
       <div class="col-sm-12">
         <div class="row mb-1">
@@ -12,51 +13,49 @@
           </td></tr></table>
         </div>
         <div class="row mb-1">
-          <button class="btn btn-success" @click="showForm = ! showForm">Upload Image</button>
+          <button class="btn btn-success" @click="showForm = ! showForm">画像をアップロード</button>
         </div>
         <div class="row mb-1">
           <E_learning2PhotoUploadForm v-model="showForm" />
         </div>
         <form @submit.prevent="submit">
           <div class="form-group row">
-            <label for="e_groups_id" class="col-sm-1 col-form-label">Group</label>
+            <label for="e_groups_id" class="col-sm-1 col-form-label">グループ</label>
             <select class="col-sm-1 form-control" v-model="e_groups_id">
-              <option disabled value="">Select Group</option>
               <option v-for="groups_menu in groups_menus" :key="groups_menu.id" v-bind:value="groups_menu.id" >{{ groups_menu.name }}</option>
             </select>
           </div>
           <div class="form-group row">
-            <label for="no" class="col-sm-1 col-form-label">Section_No</label>
+            <label for="no" class="col-sm-1 col-form-label">セクション番号</label>
             <input type="number" class="col-sm-1 form-control" id="no" v-model="question.no">
           </div>
           <div class="form-group row">
-            <label for="q_no" class="col-sm-1 col-form-label">Question_No</label>
+            <label for="q_no" class="col-sm-1 col-form-label">問題番号</label>
             <input type="number" class="col-sm-1 form-control" id="q_no" v-model="question.q_no">
           </div>
           <div class="form-group row">
-            <label for="quest" class="col-sm-1 col-form-label">Question</label>
+            <label for="quest" class="col-sm-1 col-form-label">問題</label>
             <textarea-autosize class="col-sm-11 form-control" id="quest" v-model="question.quest"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="ans1" class="col-sm-1 col-form-label">Answer1</label>
+            <label for="ans1" class="col-sm-1 col-form-label">解答群1</label>
             <textarea-autosize class="col-sm-11 form-control" id="ans1" v-model="question.ans1"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="ans2" class="col-sm-1 col-form-label">Answer2</label>
+            <label for="ans2" class="col-sm-1 col-form-label">解答群2</label>
             <textarea-autosize class="col-sm-11 form-control" id="ans2" v-model="question.ans2"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="ans3" class="col-sm-1 col-form-label">Answer3</label>
+            <label for="ans3" class="col-sm-1 col-form-label">解答群3</label>
             <textarea-autosize class="col-sm-11 form-control" id="ans3" v-model="question.ans3"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="ans4" class="col-sm-1 col-form-label">Answer4</label>
+            <label for="ans4" class="col-sm-1 col-form-label">解答群4</label>
             <textarea-autosize class="col-sm-11 form-control" id="ans4" v-model="question.ans4"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="ans" class="col-sm-1 col-form-label">Correct Answer</label>
+            <label for="ans" class="col-sm-1 col-form-label">正解</label>
             <select class="col-sm-1 form-control" v-model="question.ans">
-              <option disabled value="">Select Number</option>
               <option v-bind:value="1">1</option>
               <option v-bind:value="2">2</option>
               <option v-bind:value="3">3</option>
@@ -64,26 +63,26 @@
             </select>
           </div>
           <div class="form-group row">
-            <label for="exp1" class="col-sm-1 col-form-label">Explanation1</label>
+            <label for="exp1" class="col-sm-1 col-form-label">解説1</label>
             <textarea-autosize class="col-sm-11 form-control" id="exp1" v-model="question.exp1"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="exp2" class="col-sm-1 col-form-label">Explanation2</label>
+            <label for="exp2" class="col-sm-1 col-form-label">解説2</label>
             <textarea-autosize class="col-sm-11 form-control" id="exp2" v-model="question.exp2"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="exp3" class="col-sm-1 col-form-label">Explanation3</label>
+            <label for="exp3" class="col-sm-1 col-form-label">解説3</label>
             <textarea-autosize class="col-sm-11 form-control" id="exp3" v-model="question.exp3"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="exp4" class="col-sm-1 col-form-label">Explanation4</label>
+            <label for="exp4" class="col-sm-1 col-form-label">解説4</label>
             <textarea-autosize class="col-sm-11 form-control" id="exp4" v-model="question.exp4"></textarea-autosize>
           </div>
           <div class="form-group row">
-            <label for="exp0" class="col-sm-1 col-form-label">Explanation All</label>
+            <label for="exp0" class="col-sm-1 col-form-label">解説</label>
             <textarea-autosize class="col-sm-11 form-control" id="exp0" v-model="question.exp0"></textarea-autosize>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">決定</button>
         </form>
       </div>
     </div>

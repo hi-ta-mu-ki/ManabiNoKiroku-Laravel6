@@ -1,9 +1,10 @@
 <template>
   <div class="container">
+    <h2 class="title">クラス一覧</h2>
     <div class="bg-primary mb-1">
       <div class="p-1 mb-1 bg-primary text-white form-inline row">
         <router-link v-bind:to="{name: 'tc.classcreate', params: {groupId: groupId}}">
-          <button class="btn btn-success">Class ADD</button>
+          <button class="btn btn-success">クラスを追加</button>
         </router-link>
       </div>
     </div>
@@ -11,8 +12,8 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Class Name</th>
-          <th scope="col">PassCode</th>
+          <th scope="col">クラス名</th>
+          <th scope="col">パスコード</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
@@ -24,11 +25,11 @@
           <td>{{ item.pass_code }}</td>
           <td>
             <router-link v-bind:to="{name: 'tc.classedit', params: {classId: item.id}}">
-              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-success">編集</button>
             </router-link>
           </td>
           <td>
-            <button class="btn btn-danger" v-confirm="onAlert(item.id)">Delete</button>
+            <button class="btn btn-danger" v-confirm="onAlert(item.id)">削除</button>
           </td>
         </tr>
       </tbody>

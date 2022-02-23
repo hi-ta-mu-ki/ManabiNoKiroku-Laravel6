@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <h2 class="title">QuestionCsvImport</h2>
+    <h2 class="title">問題 CSV インポート</h2>
     <div class="row">
       <div class="col">
         <div v-if="errors">
@@ -24,12 +24,12 @@
         </div>
         <form class="form" enctype="multipart/form-data" @submit.prevent="submit">
           <div class="mt-1 ml-1" v-show="select1">
-            <button type="submit" class="btn btn-success">submit</button>
+            <button type="submit" class="btn btn-success">アップロード</button>
           </div>
         </form>
         <form class="form" enctype="multipart/form-data" @submit.prevent="submit2">
           <div class="mt-1 ml-1" v-show="select2">
-            <button type="submit" class="btn btn-success">submit</button>
+            <button type="submit" class="btn btn-success">アップロード</button>
             <div class="alert-danger ml-1">※問題が生じました。プレビューを確認してデータに問題がなければもう一度。</div>
           </div>
         </form>
@@ -40,20 +40,20 @@
     <div class="mt-1 mb-1 ml-1">
       <table border="1">
         <tr>
-          <td>Group_No</td>
-          <td>Section_No</td>
-          <td>Question_No</td>
-          <td>Question</td>
-          <td>Answer1</td>
-          <td>Answer2</td>
-          <td>Answer3</td>
-          <td>Answer4</td>
-          <td>CorrectAnswer</td>
-          <td>Explanation1</td>
-          <td>Explanation2</td>
-          <td>Explanation3</td>
-          <td>Explanation4</td>
-          <td>Explanation</td>
+          <td>グループ番号</td>
+          <td>セクション番号</td>
+          <td>問題番号</td>
+          <td>問題</td>
+          <td>解答群1</td>
+          <td>解答群2</td>
+          <td>解答群3</td>
+          <td>解答群</td>
+          <td>正解</td>
+          <td>解説1</td>
+          <td>解説2</td>
+          <td>解説3</td>
+          <td>解説4</td>
+          <td>解説</td>
         </tr>
         <tr v-for="(question, index) in questions" :key="index">
           <td v-for="(column, index) in question" :key="index" v-html="column"></td>

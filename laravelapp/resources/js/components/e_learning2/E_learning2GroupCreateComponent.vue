@@ -1,13 +1,15 @@
 <template>
   <div class="container">
+    <h2 class="title">グループ追加</h2>
     <div class="row justify-content-center">
-      <div class="col-sm-12">
+      <div class="col-sm-8">
         <form @submit.prevent="submit">
           <div class="form-group row">
-            <label for="name" class="col-sm-1 col-form-label">Group Name</label>
-            <input type="text" class="col-sm-11 form-control" id="name" v-model="group.name">
+            <label for="name" class="col-sm-2 col-form-label">グループ名</label>
+            <input type="text" class="col-sm-6 form-control" id="name" v-model="group.name">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <div v-if="isMsg"><div class="alert alert-danger" role="alert">{{ msg }}</div></div>
+          <button type="submit" class="btn btn-primary">決定</button>
         </form>
       </div>
     </div>
@@ -18,14 +20,21 @@
 export default {
   data: function () {
     return {
-      group: {}
+      group: {},
+      msg: '',
+      isMsg: false
     }
   },
   methods: {
     submit() {
       axios.post('/api/e_learning2/group', this.group)
         .then((res) => {
-          this.$router.push({name: 'tc.grouplist'});
+          if(res.status== 201)
+            this.$router.push({name: 'tc.grouplist'});
+          else{
+            this.isMsg = true;
+            this.msg = 'すでに使用されているグループ名です';
+          }
         });
     }
   }

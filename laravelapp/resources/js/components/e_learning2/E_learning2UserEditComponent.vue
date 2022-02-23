@@ -4,27 +4,27 @@
       <div class="col-sm-12">
         <form @submit.prevent="submit">
           <div class="form-group row">
-            <label for="name" class="col-sm-1 col-form-label">Name</label>
-            <input type="text" class="col-sm-11 form-control" id="name" v-model="user.name">
+            <label for="name" class="col-sm-2 col-form-label">名前</label>
+            <input type="text" class="col-sm-10 form-control" id="name" v-model="user.name">
           </div>
           <div class="form-group row">
-            <label for="email" class="col-sm-1 col-form-label">E_Mail</label>
-            <input type="text" class="col-sm-11 form-control" id="email" v-model="user.email">
+            <label for="email" class="col-sm-2 col-form-label">メールアドレス</label>
+            <input type="text" class="col-sm-10 form-control" id="email" v-model="user.email">
           </div>
           <div class="form-group row">
-            <label for="password" class="col-sm-1 col-form-label text-primary">Password</label>
-            <input type="text" class="col-sm-11 form-control text-primary" id="password" v-model="user.password">
+            <label for="password" class="col-sm-2 col-form-label text-primary">パスワード</label>
+            <input type="text" class="col-sm-10 form-control text-primary" id="password" v-model="user.password">
           </div>
           <div class="form-group row">
-            <label for="role" class="col-sm-1 col-form-label">Role</label>
-            <select class="col-sm-11 form-control" v-model="user.role">
+            <label for="role" class="col-sm-2 col-form-label">役割</label>
+            <select class="col-sm-10 form-control" v-model="user.role">
               <option value="">Select Role</option>
               <option v-bind:value="1">管理者</option>
               <option v-bind:value="5">教　員</option>
               <option v-bind:value="10">生　徒</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">決定</button>
         </form>
       </div>
     </div>

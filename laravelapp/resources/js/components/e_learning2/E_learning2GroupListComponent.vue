@@ -1,9 +1,10 @@
 <template>
   <div class="container">
+    <h2 class="title">グループ一覧</h2>
     <div class="bg-primary mb-1">
       <div class="p-1 mb-1 bg-primary text-white form-inline row">
         <router-link v-bind:to="{name: 'tc.groupcreate'}">
-          <button class="btn btn-success">Group ADD</button>
+          <button class="btn btn-success">グループを追加</button>
         </router-link>
       </div>
     </div>
@@ -11,7 +12,8 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Group Name</th>
+          <th scope="col">グループ名</th>
+          <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
@@ -23,15 +25,20 @@
           <td>{{ group.name }}</td>
           <td>
             <router-link v-bind:to="{name: 'tc.groupedit', params: {groupId: group.id }}">
-              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-success">編集</button>
             </router-link>
           </td>
           <td>
-            <button class="btn btn-danger" v-confirm="onAlert(group.id)">Delete</button>
+            <button class="btn btn-danger" v-confirm="onAlert(group.id)">削除</button>
+          </td>
+          <td>
+            <router-link v-bind:to="{name: 'tc.owner', params: {groupId: group.id }}">
+              <button class="btn btn-success">所有者一覧</button>
+            </router-link>
           </td>
           <td>
             <router-link v-bind:to="{name: 'tc.classlist', params: {groupId: group.id }}">
-              <button class="btn btn-success">Class Setting</button>
+              <button class="btn btn-success">クラスを設定</button>
             </router-link>
           </td>
         </tr>

@@ -4,10 +4,10 @@
     <table class="table table-hover table-sm" ref="table">
       <thead class="thead-light">
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">E_Mail</th>
-        <th scope="col">Answer Time</th>
-        <th scope="col" v-for="i in n - 1" :key="i">Q_no{{ i }}</th>
+        <th scope="col">名前</th>
+        <th scope="col">メールアドレス</th>
+        <th scope="col">解答時刻</th>
+        <th scope="col" v-for="i in n - 1" :key="i">問題{{ i }}</th>
       </tr>
       </thead>
       <tbody>
@@ -16,7 +16,7 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-success" @click="downloadExcelFile()">Excel Download</button>
+    <button class="btn btn-success" @click="downloadExcelFile()">Excelにダウンロード</button>
   </div>
 </template>
 

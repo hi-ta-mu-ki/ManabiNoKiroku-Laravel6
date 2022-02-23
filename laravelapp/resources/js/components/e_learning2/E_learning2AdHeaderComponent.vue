@@ -1,18 +1,18 @@
 <template>
   <div class="container-fluid bg-dark mb-3">
     <nav class="navbar navbar-dark">
-      <span class="navbar-brand mb-0 h1">E-Learning User Management</span>
+      <span class="navbar-brand mb-0 h1">まなびのきろく３　ユーザ管理</span>
       <div>
         <router-link v-bind:to="{name: 'ad.list'}">
-          <button class="btn btn-success">ListAll</button>
+          <button class="btn btn-success">ユーザ一覧</button>
         </router-link>
         <router-link v-bind:to="{name: 'ad.create'}">
-          <button class="btn btn-success">ADD</button>
+          <button class="btn btn-success">ユーザ追加</button>
         </router-link>
         <router-link v-bind:to="{name: 'ad.import'}">
-          <button class="btn btn-success">CSV Import</button>
+          <button class="btn btn-success">CSV インポート</button>
         </router-link>
-        <button class="btn btn-secondary" @click="logout">Logout</button>
+        <button class="btn btn-secondary" @click="logout">ログアウト</button>
       </div>
     </nav>
   </div>

@@ -1,8 +1,9 @@
 <template>
-  <modal name="modal_member_add" :draggable="true" :resizable="true" :scrollable="true" width="30%" height="auto">
+  <modal name="modal_member_add" :draggable="true" :resizable="true" :scrollable="true" width="20%" height="auto">
     <div id="overlay">
       <div id="content">
         <div class="container-fluid">
+          <h2 class="title text-dark">メンバー追加</h2>
           <form @submit.prevent="submit">
             <div class="form-group row">
               <input type="text" v-model="keyword">
@@ -16,10 +17,10 @@
             </div>
             <div v-if="isMsg"><div class="alert alert-danger" role="alert">{{ msg }}</div></div>
             <div v-if="cnt == 1">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">決定</button>
             </div>
             <div v-else>
-              <button class="btn btn-secondary" @click="clickEvent">Cancel</button>
+              <button class="btn btn-secondary" @click="clickEvent">キャンセル</button>
             </div>
           </form>
         </div>
@@ -48,7 +49,7 @@ export default {
   },
   methods: {
     getusers() {
-      axios.get('/api/e_learning2/join2')
+      axios.get('/api/e_learning2/class_join1')
         .then((res) => {
           this.users = res.data;
         });
@@ -57,7 +58,7 @@ export default {
       this.$emit('from-child');
     },
     submit() {
-      axios.post('/api/e_learning2/join2/' + this.e_classes_id, this.joinForm)
+      axios.post('/api/e_learning2/class_join1/' + this.e_classes_id, this.joinForm)
         .then((res) => {
           if(res.status== 201)
             this.$emit('from-child');
@@ -70,16 +71,17 @@ export default {
   },
   computed: {
     filteredUsers: function() {
-    var users = [];
-    for(var i in this.users) {
-        var user  = this.users[i];
-        if(user.name.indexOf(this.keyword) !== -1) {
-            users.push(user);
-        }
-        this.cnt = users.length;
-        if(this.cnt == 1) this.joinForm.id = users[0].id;
-    }
-    return users;
+      var users = [];
+      for(var i in this.users) {
+          var user  = this.users[i];
+          if(user.name.indexOf(this.keyword) !== -1) {
+              users.push(user);
+          }
+      }
+      this.cnt = users.length;
+      if(this.cnt == 1) this.joinForm.id = users[0].id;
+      this.isMsg = false;
+      return users;
     }
   },
   mounted() {

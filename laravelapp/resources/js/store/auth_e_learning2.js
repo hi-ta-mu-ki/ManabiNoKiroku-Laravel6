@@ -14,7 +14,7 @@ const getters = {
   role: state => state.user ? state.user.role : 0,
   id: state => state.user ? state.user.id : 0,
   e_groups_id: state => state.e_groups_id ? state.e_groups_id : 0,
-  classes_Id: state => state.classes_Id ? state.classes_Id : 0,
+  e_classes_id: state => state.e_classes_id ? state.e_classes_id : 0,
 }
 
 const mutations = {

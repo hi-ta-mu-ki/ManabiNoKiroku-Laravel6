@@ -1,30 +1,30 @@
 <template>
   <div class="container-fluid bg-primary mb-3 text-white">
     <nav class="navbar navbar-primary">
-      <span class="navbar-brand mb-0 h1">E-Learning Teacher Menu</span>
+      <span class="navbar-brand mb-0 h1">まなびのきろく３　～先生メニュー～</span>
       <div>
         <router-link v-bind:to="{name: 'tc.grouplist'}">
-        <button class="btn btn-success">Group Setting</button>
+        <button class="btn btn-success">グループ設定</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.member'}">
-        <button class="btn btn-success">Member List</button>
+        <button class="btn btn-success">クラス生徒一覧</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.setting'}">
-          <button class="btn btn-success">Question Setting</button>
+          <button class="btn btn-success">問題実施設定</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.list'}">
-          <button class="btn btn-success">Question List</button>
+          <button class="btn btn-success">問題一覧</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.create'}">
-          <button class="btn btn-success">Question ADD</button>
+          <button class="btn btn-success">問題作成</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.import'}">
-          <button class="btn btn-success">Question CSV Import</button>
+          <button class="btn btn-success">問題 CSV インポート</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.join'}">
-          <button class="btn btn-success">Join New Class</button>
+          <button class="btn btn-success">クラスに参加</button>
         </router-link>
-        <button class="btn btn-secondary" @click="logout">Logout</button>
+        <button class="btn btn-secondary" @click="logout">ログアウト</button>
       </div>
     </nav>
   </div>

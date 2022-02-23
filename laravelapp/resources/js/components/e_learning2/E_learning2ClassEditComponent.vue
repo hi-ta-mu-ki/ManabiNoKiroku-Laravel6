@@ -1,16 +1,25 @@
 <template>
   <div class="container">
+    <h2 class="title">クラス編集</h2>
     <div class="row justify-content-center">
-      <div class="col-sm-12">
+      <div class="row mb-1">
+        <table border=1><tr><td>
+          【ヘルプ】　※パスコードが空欄の場合は，パスコードでの参加はできません。<br>
+          　　　　　　　また，セキュリティ上，パスコードの設定から10日後は無効となります。
+        </td></tr></table>
+      </div>
+      <div class="col-sm-8">
         <form @submit.prevent="submit">
           <div class="form-group row">
-            <label for="name" class="col-sm-1 col-form-label">Class Name</label>
-            <input type="text" class="col-sm-11 form-control" id="name" v-model="clas.name">
-            <label for="pass_code" class="col-sm-1 col-form-label">Pass Code</label>
-            <input type="text" class="col-sm-11 form-control" id="pass_code" v-model="clas.pass_code">
+            <label for="name" class="col-sm-2 col-form-label">クラス名</label>
+            <input type="text" class="col-sm-6 form-control" id="name" v-model="clas.name">
+          </div>
+          <div class="form-group row">
+            <label for="pass_code" class="col-sm-2 col-form-label">パスコード</label>
+            <input type="text" class="col-sm-6 form-control" id="pass_code" v-model="clas.pass_code">
           </div>
           <div v-if="isMsg"><div class="alert alert-danger" role="alert">{{ msg }}</div></div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">決定</button>
         </form>
       </div>
     </div>
@@ -43,7 +52,7 @@ export default {
             this.$router.push({name: 'tc.classlist'})
           else{
             this.isMsg = true;
-            this.msg = 'すでに使用されているパスコードです';
+            this.msg = 'すでに使用されているクラス名，または，パスコードです';
           }
         });
     }

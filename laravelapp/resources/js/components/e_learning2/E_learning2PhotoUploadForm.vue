@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="mt-1 ml-3" v-show="select">
-          <button type="submit" class="btn btn-success">submit</button>
+          <button type="submit" class="btn btn-success">アップロード</button>
           <div class="ml-1">{{ filename }}</div>
         </div>
       </form>

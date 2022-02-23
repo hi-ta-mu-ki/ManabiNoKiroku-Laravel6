@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <h2 class="title">UserCsvImport</h2>
+    <h2 class="title">ユーザ CSV インポート</h2>
     <div class="row">
       <div class="col">
           <div>
@@ -26,13 +26,13 @@
           </div>
         <form class="form" enctype="multipart/form-data" @submit.prevent="submit">
           <div class="mt-1 ml-1" v-show="select1">
-            <button type="submit" class="btn btn-success">submit</button>
+            <button type="submit" class="btn btn-success">アップロード</button>
             <div class="ml-1">{{ filename }}</div>
           </div>
         </form>
         <form class="form" enctype="multipart/form-data" @submit.prevent="submit2">
           <div class="mt-1 ml-1" v-show="select2">
-            <button type="submit" class="btn btn-success">submit</button>
+            <button type="submit" class="btn btn-success">アップロード</button>
             <div class="ml-1">{{ filename }}</div>
             ※問題が生じました。プレビューを確認してデータに問題がなければもう一度。
           </div>
@@ -42,10 +42,10 @@
     <div class="mt-1 mb-1 ml-1">
       <table border="1">
         <tr>
-          <td>Name</td>
-          <td>E_Mail</td>
-          <td>Password</td>
-          <td>Role</td>
+          <td>名前</td>
+          <td>メールアドレス</td>
+          <td>パスワード</td>
+          <td>役割</td>
         </tr>
         <tr v-for="(user, index) in users" :key="index">
           <td v-for="(column, index) in user" :key="index">{{ column }}</td>

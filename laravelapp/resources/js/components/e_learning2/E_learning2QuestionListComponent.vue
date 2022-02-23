@@ -1,15 +1,16 @@
 <template>
   <div class="container-fluid">
+    <h2 class="title">問題一覧</h2>
     <div class="bg-primary mb-1">
       <div class="p-1 mb-1 bg-primary text-white form-inline row">
         <div class="form-group col-2">
-          <label for="selectgroup" class="mr-2">Select Group:</label>
+          <label for="selectgroup" class="mr-2">グループを選択：</label>
             <select class="form-control" id="selectgroup" @change="jump1" v-model="e_groups_id">
               <option v-for="groups_menu in groups_menus" :key="groups_menu.id" v-bind:value="groups_menu.id" >{{ groups_menu.name }}</option>
             </select>
         </div>
         <div class="form-group col-10">
-          <label for="selectsection" class="mr-2">Select Section:</label>
+          <label for="selectsection" class="mr-2">セクションを選択：</label>
          <select class="form-control" id="selectsection" @change="jump2" v-model="no">
             <option v-for="question in questions_menu" :key="question.no" v-bind:value="question.no" >{{ question.quest }}</option>
           </select>
@@ -21,9 +22,9 @@
         <thead class="thead-light">
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">S_No</th>
-          <th scope="col">Q_No</th>
-          <th scope="col">Question</th>
+          <th scope="col">セクション番号</th>
+          <th scope="col">問題番号</th>
+          <th scope="col">問題</th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
@@ -45,22 +46,22 @@
             <td>
               <div v-if="question.q_no != 0">
                 <router-link v-bind:to="{name: 'tc.show', params: {questionId: question.id }}">
-                  <button class="btn btn-primary">PreView</button>
+                  <button class="btn btn-primary">プレビュー</button>
                 </router-link>
               </div>
               <div v-else>
                 <router-link v-bind:to="{name: 'tc.answer', params: {no: question.no }}">
-                  <button class="btn btn-warning">AnswerList</button>
+                  <button class="btn btn-warning">生徒の成績</button>
                 </router-link>
               </div>
             </td>
             <td>
               <router-link v-bind:to="{name: 'tc.edit', params: {questionId: question.id }}">
-                <button class="btn btn-success">Edit</button>
+                <button class="btn btn-success">編集</button>
               </router-link>
             </td>
             <td>
-              <button class="btn btn-danger" @click="deleteQuestion(question.id)">Delete</button>
+              <button class="btn btn-danger" @click="deleteQuestion(question.id)">削除</button>
             </td>
           </tr>
         </tbody>

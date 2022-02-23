@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="row justify-content-center" v-if="!answered">
       <div class="col-sm-12">
-        <h3>現在〇問中〇問正解</h3>
-        <h1><p class="badge badge-primary">第 {{ currentQuestion.q_no }} 問</p></h1>
+        <h3>げんざい，〇もんちゅう〇もんせいかい</h3>
+        <h1><p class="badge badge-primary">だい {{ currentQuestion.q_no }} もん</p></h1>
         <br>
         <div class="text-primary">
           <h4><span v-html="$sanitize(currentQuestion.quest)"></span></h4>
@@ -23,8 +23,8 @@
     </div>
     <div class="row justify-content-center" v-else-if="answered">
       <div class="col-sm-12">
-        <h3>現在〇問中〇問正解</h3>
-        <h1><p class="badge badge-primary">第 {{ currentQuestion.q_no }} 問</p></h1>
+        <h3>〇もんちゅう〇もんせいかい</h3>
+        <h1><p class="badge badge-primary">だい {{ currentQuestion.q_no }} もん</p></h1>
         <br>
         <div class="text-primary">
           <h4><span v-html="$sanitize(currentQuestion.quest)"></span></h4>
@@ -37,9 +37,9 @@
         </table></h4>
         <hr>
         <h4>
-          <span v-if="currentQuestion.ans == answers[0]"><div class="text-primary ml-3">あなたの解答は「{{answers[0]}}」　正解！！</div></span>
-          <span v-else><div class="text-danger ml-3">あなたの解答は「{{answers[0]}}」　不正解。。。　正解は「{{ currentQuestion.ans }}」でした。</div></span><br>
-          <h3><span class="badge badge-primary ml-3">解説</span></h3>
+          <span v-if="currentQuestion.ans == answers[0]"><div class="text-primary ml-3">あなたのこたえは「{{answers[0]}}」　せいかい！！</div></span>
+          <span v-else><div class="text-danger ml-3">あなたのこたえは「{{answers[0]}}」　まちがい。。。　せいかいは「{{ currentQuestion.ans }}」でした。</div></span><br>
+          <h3><span class="badge badge-primary ml-3">かいせつ</span></h3>
           <span v-if="currentQuestion.exp1 != null"><div class="ml-3">　1 . <span v-html="$sanitize(currentQuestion.exp1)"></span></div></span>
           <span v-if="currentQuestion.exp2 != null"><div class="ml-3">　2 . <span v-html="$sanitize(currentQuestion.exp2)"></span></div></span>
           <span v-if="currentQuestion.exp3 != null"><div class="ml-3">　3 . <span v-html="$sanitize(currentQuestion.exp3)"></span></div></span>
