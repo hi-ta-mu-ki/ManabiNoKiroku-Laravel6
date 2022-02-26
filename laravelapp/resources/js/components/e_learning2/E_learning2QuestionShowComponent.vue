@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     getQuestions() {
-      axios.get('/api/e_learning2/tc/' + this.questionId)
+      axios.get('/api/e_learning2/question/' + this.questionId)
         .then((res) => {
           this.questions = res.data;
         });

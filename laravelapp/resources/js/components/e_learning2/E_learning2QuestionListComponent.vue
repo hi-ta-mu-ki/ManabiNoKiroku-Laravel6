@@ -95,27 +95,25 @@ export default {
       this.getQuestionsMenu();
     },
     getQuestionsMenu() {
-//      axios.get('/api/e_learning2/tc_menu/' + this.e_groups_id)
-      axios.get('/api/e_learning2/tc_menu/' + this.$store.getters['auth_e_learning2/e_groups_id'])
+      axios.get('/api/e_learning2/section_menu1/' + this.$store.getters['auth_e_learning2/e_groups_id'])
         .then((res) => {
           this.questions_menu = res.data;
         });
     },
     getQuestions() {
-      axios.get('/api/e_learning2/tc/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
+      axios.get('/api/e_learning2/question/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
           this.questions = res.data;
         });
     },
     deleteQuestion(id) {
-      axios.delete('/api/e_learning2/tc/' + id)
+      axios.delete('/api/e_learning2/question/' + id)
         .then((res) => {
           this.getQuestions();
         });
     },
     jump2: function() {
       this.getQuestions();
-//      this.$router.push(`/e_learning2/tc/list/${this.no}`)
     },
   },
   mounted() {

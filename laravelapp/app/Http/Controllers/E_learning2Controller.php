@@ -25,168 +25,42 @@ use SplFileObject;
 class E_learning2Controller extends Controller
 {
 
-  public function show(Exercise $id)
-  {
-    return $id;
-  }
-
-  public function store(Request $request)
-  {
-    return Exercise::create($request->all());
-  }
-
-  public function update(Request $request, Exercise $id)
-  {
-    $id->update($request->all());
-    return $id;
-  }
-
-  public function destroy(Exercise $id)
-  {
-    $id->delete();
-    return $id;
-  }
-
-  public function tc_menu($e_groups_id)
+  public function section_menu1($e_groups_id)
   {
     return Exercise::where('q_no', 0)->where('e_groups_id', $e_groups_id)->get();
   }
 
-  public function tc_menu2($e_classes_id)
+  public function section_menu2($e_classes_id)
   {
     $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
     return Exercise::where('q_no', 0)->whereIn('e_groups_id', $e_groups_id)->get();
   }
 
-  public function list($e_groups_id, $no)
+  public function question_list($e_groups_id, $no)
   {
     return Exercise::where('e_groups_id', $e_groups_id)->where('no', $no)->get();
   }
 
-  public function groups_menu()
+  public function question_show(Exercise $id)
   {
-    $user_id = Auth::user()->id;
-    $items1 = E_member::where('user_id', $user_id)->select('e_classes_id')->getQuery();
-    $items2 = E_class::whereIn('id', $items1)->select('e_groups_id')->getQuery();
-    return E_group::whereIn('id', $items2)->get();
+    return $id;
   }
 
-  public function classes_menu()
+  public function question_store(Request $request)
   {
-    $user_id = Auth::user()->id;
-    $items = E_member::where('user_id', $user_id)->select('e_classes_id')->getQuery();
-    return E_class::whereIn('id', $items)->get();
+    return Exercise::create($request->all());
   }
 
-  public function owner_list($e_groups_id)
+  public function question_update(Request $request, Exercise $id)
   {
-    return E_owner::where('e_groups_id', $e_groups_id)->with('user')->orderBy('user_id', 'asc')->get();
+    $id->update($request->all());
+    return $id;
   }
 
-  public function owner_list_delete($id)
+  public function question_destroy(Exercise $id)
   {
-    E_owner::where('user_id', $id)->delete();
-  }
-
-  public function member_list($e_classes_id)
-  {
-    return E_member::where('e_classes_id', $e_classes_id)->with(['user' => function ($query) {$query->orderBy('role', 'asc');}])->orderBy('user_id', 'asc')->get();
-  }
-
-  public function member_list_delete($id)
-  {
-    E_member::where('user_id', $id)->delete();
-  }
-
-  public function member_list2($e_classes_id)
-  {
-    return E_member::select('user_id','name')->join('users', 'users.id','=','e_members.user_id')->where('e_classes_id', $e_classes_id)->where('role', 10)->orderBy('user_id', 'asc')->get();
-  }
-
-  public function select_title($e_classes_id)
-  {
-    $selected_titles = E_setting::where('e_classes_id', $e_classes_id)->get('no');
-    $setting = array();
-    $i = 0;
-    foreach($selected_titles as $selected_title){
-      $setting[$i] = $selected_title->no;
-      $i++;
-    }
-    return $setting;
-  }
-
-  public function setting($e_classes_id, Request $request)
-  {
-    $selected_titles = $request->input();
-    $i = 0;
-    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
-    $section_titles = Exercise::whereIn('e_groups_id', $e_groups_id)->where('q_no', 0)->get();
-    foreach($section_titles as $section_title){
-      $item = E_setting::where('e_classes_id', $e_classes_id)->where('no', $section_title->no)->first();
-      if($item == null){
-        if($i < count($selected_titles)){
-          if($section_title->no == $selected_titles[$i]){
-            $titles = new E_setting;
-            $titles->e_classes_id = $e_classes_id;
-            $titles->no = $selected_titles[$i];
-            $titles->save();
-            $i++;
-          }
-        }
-      }else if($section_title->no == $item->no){
-        if($i < count($selected_titles)){
-          if($section_title->no == $selected_titles[$i]) $i++;
-        }else E_setting::where('e_classes_id', $e_classes_id)->where('no', $section_title->no)->delete();
-      }
-    }
-    return response($request, 201);
-  }
-
-  public function st_menu($e_classes_id)
-  {
-    $selected_titles = E_setting::where('e_classes_id', $e_classes_id)->select('no')->getQuery();
-    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
-    return Exercise::where('q_no', 0)->whereIn('e_groups_id', $e_groups_id)->whereIn('no', $selected_titles)->get();
-  }
-
-  public function rdm_list($e_classes_id, $no)
-  {
-    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
-    $questions = Exercise::whereIn('e_groups_id', $e_groups_id)->where('no', $no)->where('q_no', '>', '0')->get();
-    foreach($questions as $question){
-      $a_ptn = mt_rand(1, 24);
-      $a_ptn_w = Ans_pattern::where('id', $a_ptn)->first();
-      $a_ptn_list = array();
-      $a_ptn_list[0] = $a_ptn_w->ans1;
-      $a_ptn_list[1] = $a_ptn_w->ans2;
-      $a_ptn_list[2] = $a_ptn_w->ans3;
-      $a_ptn_list[3] = $a_ptn_w->ans4;
-      $ans_list = array();
-      $ans_list[$a_ptn_list[0] - 1] = $question->ans1;
-      $ans_list[$a_ptn_list[1] - 1] = $question->ans2;
-      $ans_list[$a_ptn_list[2] - 1] = $question->ans3;
-      $ans_list[$a_ptn_list[3] - 1] = $question->ans4;
-      $question->ans1 = $ans_list[0];
-      $question->ans2 = $ans_list[1];
-      $question->ans3 = $ans_list[2];
-      $question->ans4 = $ans_list[3];
-      $question->ans = $a_ptn_list[$question->ans - 1];
-      $exp_list = array();
-      $exp_list[$a_ptn_list[0] - 1] = $question->exp1;
-      $exp_list[$a_ptn_list[1] - 1] = $question->exp2;
-      $exp_list[$a_ptn_list[2] - 1] = $question->exp3;
-      $exp_list[$a_ptn_list[3] - 1] = $question->exp4;
-      $question->exp1 = $exp_list[0];
-      $question->exp2 = $exp_list[1];
-      $question->exp3 = $exp_list[2];
-      $question->exp4 = $exp_list[3];
-    }
-    return $questions;
-  }
-
-  public function a_ptn($a_ptn)
-  {
-    return Ans_pattern::where('id', $a_ptn)->get();
+    $id->delete();
+    return $id;
   }
 
   public function question_import(UploadCsvFile $request)
@@ -233,16 +107,6 @@ class E_learning2Controller extends Controller
     // 結果を戻す
     return response($request, 201);
     //    return ['import' => $ret];
-  }
-
-  public function upload(StorePhoto $request)
-  {
-    $exists = Storage::disk('public')->exists($request->photo->getClientOriginalName());
-    $filename = $request->photo->getClientOriginalName();
-    if($exists == true)
-      Storage::disk('public')->delete($filename);
-    Storage::disk('public')->putFileAs('', $request->photo, $filename);
-    return response($request, 201);
   }
 
   public function question_import2(UploadCsvFile $request)
@@ -318,6 +182,49 @@ class E_learning2Controller extends Controller
     return response($request, 201);
   }
 
+  public function question_upload(StorePhoto $request)
+  {
+    $exists = Storage::disk('public')->exists($request->photo->getClientOriginalName());
+    $filename = $request->photo->getClientOriginalName();
+    if($exists == true)
+      Storage::disk('public')->delete($filename);
+    Storage::disk('public')->putFileAs('', $request->photo, $filename);
+    return response($request, 201);
+  }
+
+  public function question_answer_list($e_groups_id, $no)
+  {
+    $e_classes_id = E_class::where('e_groups_id', $e_groups_id)->select('id')->getQuery();
+    $answers = E_answer::whereIn('e_classes_id', $e_classes_id)->where('no', $no)->orderBy('s_id', 'asc')->orderBy('user_id', 'asc')->orderBy('q_no', 'asc')->with('user')->get();
+    $answer_lists = array(array());
+    $i = -1;
+    $tmp_s_id = 0;
+    $tmp_user_id = 0;
+    foreach($answers as $answer){
+      if($tmp_s_id != $answer->s_id || $tmp_user_id != $answer->user_id){
+        $i++;
+        $tmp_s_id = $answer->s_id;
+        $tmp_user_id = $answer->user_id;
+        $answer_lists[$i][0] = $answer->s_id;
+        $answer_lists[$i][1] = $answer->user->name;
+        $answer_lists[$i][2] = $answer->user->email;
+        $answer_lists[$i][3] = $answer->created_at->format('Y年m月d日 H時i分s秒');
+        $j = 4;
+      }
+      $answer_lists[$i][$j] = $answer->correct;
+      $j++;
+    }
+    return $answer_lists;
+  }
+
+  public function groups_menu()
+  {
+    $user_id = Auth::user()->id;
+    $items1 = E_member::where('user_id', $user_id)->select('e_classes_id')->getQuery();
+    $items2 = E_class::whereIn('id', $items1)->select('e_groups_id')->getQuery();
+    return E_group::whereIn('id', $items2)->get();
+  }
+
   public function group_index()
   {
     $user_id = Auth::user()->id;
@@ -359,6 +266,41 @@ class E_learning2Controller extends Controller
     return $id;
   }
 
+  public function owner_list($e_groups_id)
+  {
+    return E_owner::where('e_groups_id', $e_groups_id)->with('user')->orderBy('user_id', 'asc')->get();
+  }
+
+  public function owner_list_delete($id)
+  {
+    E_owner::where('user_id', $id)->delete();
+  }
+
+  public function group_user_index()
+  {
+    return User::where('role', '!=', 1)->where('role', '!=', 10)->select('id', 'name')->get();
+  }
+
+  public function group_join($e_groups_id, Request $request)
+  {
+    $user = E_owner::where('e_groups_id', $e_groups_id)->where('user_id', $request->id)->first();
+    if($user == null){
+      $e_owner = new E_owner;
+      $e_owner->user_id = $request->id;
+      $e_owner->e_groups_id = $e_groups_id;
+      $e_owner->save();
+      return response($request, 201);
+    }
+    else return response($request, 400);
+  }
+
+  public function classes_menu()
+  {
+    $user_id = Auth::user()->id;
+    $items = E_member::where('user_id', $user_id)->select('e_classes_id')->getQuery();
+    return E_class::whereIn('id', $items)->get();
+  }
+
   public function class_index($e_groups_id)
   {
     return E_class::where('e_groups_id', $e_groups_id)->get();
@@ -387,7 +329,7 @@ class E_learning2Controller extends Controller
     $e_member->user_id = Auth::user()->id;
     $e_member->e_classes_id = $e_class->id;
     $e_member->save();
-return response($request, 201);
+    return response($request, 201);
   }
 
   public function class_update(Request $request, E_class $id)
@@ -406,6 +348,180 @@ return response($request, 201);
   {
     $id->delete();
     return $id;
+  }
+
+  public function member_list($e_classes_id)
+  {
+    return E_member::where('e_classes_id', $e_classes_id)->with(['user' => function ($query) {$query->orderBy('role', 'asc');}])->orderBy('user_id', 'asc')->get();
+  }
+
+  public function member_list_delete($id)
+  {
+    E_member::where('user_id', $id)->delete();
+  }
+
+  public function member_list2($e_classes_id)
+  {
+    return E_member::select('user_id','name')->join('users', 'users.id','=','e_members.user_id')->where('e_classes_id', $e_classes_id)->where('role', 10)->orderBy('user_id', 'asc')->get();
+  }
+
+  public function class_user_index()
+  {
+    return User::where('role', '!=', 1)->select('id', 'name')->get();
+  }
+
+  public function class_join1($e_classes_id, Request $request)
+  {
+    $user = E_member::where('e_classes_id', $e_classes_id)->where('user_id', $request->id)->first();
+    if($user == null){
+      $e_member = new E_member;
+      $e_member->user_id = $request->id;
+      $e_member->e_classes_id = $e_classes_id;
+      $e_member->save();
+      return response($request, 201);
+    }
+    else return response($request, 400);
+  }
+
+  public function class_join2(Request $request)
+  {
+    if($request->pass_code != null){
+      $e_class = E_class::where('pass_code', $request->pass_code)->first();
+      if($e_class == null || $e_class->updated_at < date("Y-m-d",strtotime("-10 day"))) return response($request, 400);
+      else{
+        $e_member = new E_member;
+        $e_member->user_id = Auth::user()->id;
+        $e_member->e_classes_id = $e_class->id;
+        $e_member->save();
+        return response($request, 201);
+      }
+    }
+  }
+
+  public function select_title($e_classes_id)
+  {
+    $selected_titles = E_setting::where('e_classes_id', $e_classes_id)->get('no');
+    $setting = array();
+    $i = 0;
+    foreach($selected_titles as $selected_title){
+      $setting[$i] = $selected_title->no;
+      $i++;
+    }
+    return $setting;
+  }
+
+  public function question_setting($e_classes_id, Request $request)
+  {
+    $selected_titles = $request->input();
+    $i = 0;
+    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
+    $section_titles = Exercise::whereIn('e_groups_id', $e_groups_id)->where('q_no', 0)->get();
+    foreach($section_titles as $section_title){
+      $item = E_setting::where('e_classes_id', $e_classes_id)->where('no', $section_title->no)->first();
+      if($item == null){
+        if($i < count($selected_titles)){
+          if($section_title->no == $selected_titles[$i]){
+            $titles = new E_setting;
+            $titles->e_classes_id = $e_classes_id;
+            $titles->no = $selected_titles[$i];
+            $titles->save();
+            $i++;
+          }
+        }
+      }else if($section_title->no == $item->no){
+        if($i < count($selected_titles)){
+          if($section_title->no == $selected_titles[$i]) $i++;
+        }else E_setting::where('e_classes_id', $e_classes_id)->where('no', $section_title->no)->delete();
+      }
+    }
+    return response($request, 201);
+  }
+
+  public function st_menu($e_classes_id)
+  {
+    $selected_titles = E_setting::where('e_classes_id', $e_classes_id)->select('no')->getQuery();
+    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
+    return Exercise::where('q_no', 0)->whereIn('e_groups_id', $e_groups_id)->whereIn('no', $selected_titles)->get();
+  }
+
+  public function rdm_list($e_classes_id, $no)
+  {
+    $e_groups_id = E_class::where('id', $e_classes_id)->select('e_groups_id')->getQuery();
+    $questions = Exercise::whereIn('e_groups_id', $e_groups_id)->where('no', $no)->where('q_no', '>', '0')->get();
+    foreach($questions as $question){
+      $a_ptn = mt_rand(1, 24);
+      $a_ptn_w = Ans_pattern::where('id', $a_ptn)->first();
+      $a_ptn_list = array();
+      $a_ptn_list[0] = $a_ptn_w->ans1;
+      $a_ptn_list[1] = $a_ptn_w->ans2;
+      $a_ptn_list[2] = $a_ptn_w->ans3;
+      $a_ptn_list[3] = $a_ptn_w->ans4;
+      $ans_list = array();
+      $ans_list[$a_ptn_list[0] - 1] = $question->ans1;
+      $ans_list[$a_ptn_list[1] - 1] = $question->ans2;
+      $ans_list[$a_ptn_list[2] - 1] = $question->ans3;
+      $ans_list[$a_ptn_list[3] - 1] = $question->ans4;
+      $question->ans1 = $ans_list[0];
+      $question->ans2 = $ans_list[1];
+      $question->ans3 = $ans_list[2];
+      $question->ans4 = $ans_list[3];
+      $question->ans = $a_ptn_list[$question->ans - 1];
+      $exp_list = array();
+      $exp_list[$a_ptn_list[0] - 1] = $question->exp1;
+      $exp_list[$a_ptn_list[1] - 1] = $question->exp2;
+      $exp_list[$a_ptn_list[2] - 1] = $question->exp3;
+      $exp_list[$a_ptn_list[3] - 1] = $question->exp4;
+      $question->exp1 = $exp_list[0];
+      $question->exp2 = $exp_list[1];
+      $question->exp3 = $exp_list[2];
+      $question->exp4 = $exp_list[3];
+    }
+    return $questions;
+  }
+
+  public function a_ptn($a_ptn)
+  {
+    return Ans_pattern::where('id', $a_ptn)->get();
+  }
+
+  public function answer_record(Request $request)
+  {
+    $e_answer = new E_answer;
+    $e_answer->user_id = $request->user_id;
+    $e_answer->e_classes_id = $request->e_classes_id;
+    $e_answer->s_id = $request->s_id;
+    $e_answer->no = $request->no;
+    $e_answer->q_no = $request->q_no;
+    $e_answer->correct = $request->correct;
+    $e_answer->save();
+    return  response($request, 201);
+  }
+
+  public function answer_list2($id, $e_classes_id)
+  {
+    $answers = E_answer::where('user_id', $id)->where('e_classes_id', $e_classes_id)->orderBy('no', 'asc')->orderBy('s_id', 'desc')->orderBy('q_no', 'asc')->get();
+    $answer_lists = array(array());
+    $i = -1;
+    $tmp_s_id = 0;
+    foreach($answers as $answer){
+      if($tmp_s_id != $answer->s_id){
+        $i++;
+        $tmp_s_id = $answer->s_id;
+        $answer_lists[$i][0] = $answer->s_id;
+        $sections = Exercise::where('no', $answer->no)->where('q_no', 0)->first();
+        $answer_lists[$i][1] = $sections->quest;
+        $answer_lists[$i][2] = $answer->created_at->format('Y年m月d日 H時i分s秒');
+        $j = 3;
+      }
+      $answer_lists[$i][$j] = $answer->correct;
+      $j++;
+    }
+    return $answer_lists;
+  }
+
+  public function answer_delete($id)
+  {
+    E_answer::where('user_id', $id)->delete();
   }
 
   public function user_index()
@@ -558,120 +674,5 @@ return response($request, 201);
     return response($request, 201);
   }
 
-  public function answer_record(Request $request)
-  {
-    $e_answer = new E_answer;
-    $e_answer->user_id = $request->user_id;
-    $e_answer->e_classes_id = $request->e_classes_id;
-    $e_answer->s_id = $request->s_id;
-    $e_answer->no = $request->no;
-    $e_answer->q_no = $request->q_no;
-    $e_answer->correct = $request->correct;
-    $e_answer->save();
-    return  response($request, 201);
-  }
-
-  public function answer_list($e_groups_id, $no)
-  {
-    $e_classes_id = E_class::where('e_groups_id', $e_groups_id)->select('id')->getQuery();
-    $answers = E_answer::whereIn('e_classes_id', $e_classes_id)->where('no', $no)->orderBy('s_id', 'asc')->orderBy('user_id', 'asc')->orderBy('q_no', 'asc')->with('user')->get();
-    $answer_lists = array(array());
-    $i = -1;
-    $tmp_s_id = 0;
-    $tmp_user_id = 0;
-    foreach($answers as $answer){
-      if($tmp_s_id != $answer->s_id || $tmp_user_id != $answer->user_id){
-        $i++;
-        $tmp_s_id = $answer->s_id;
-        $tmp_user_id = $answer->user_id;
-        $answer_lists[$i][0] = $answer->s_id;
-        $answer_lists[$i][1] = $answer->user->name;
-        $answer_lists[$i][2] = $answer->user->email;
-        $answer_lists[$i][3] = $answer->created_at->format('Y年m月d日 H時i分s秒');
-        $j = 4;
-      }
-      $answer_lists[$i][$j] = $answer->correct;
-      $j++;
-    }
-    return $answer_lists;
-  }
-
-  public function answer_list2($id, $e_classes_id)
-  {
-    $answers = E_answer::where('user_id', $id)->where('e_classes_id', $e_classes_id)->orderBy('no', 'asc')->orderBy('s_id', 'desc')->orderBy('q_no', 'asc')->get();
-    $answer_lists = array(array());
-    $i = -1;
-    $tmp_s_id = 0;
-    foreach($answers as $answer){
-      if($tmp_s_id != $answer->s_id){
-        $i++;
-        $tmp_s_id = $answer->s_id;
-        $answer_lists[$i][0] = $answer->s_id;
-        $sections = Exercise::where('no', $answer->no)->where('q_no', 0)->first();
-        $answer_lists[$i][1] = $sections->quest;
-        $answer_lists[$i][2] = $answer->created_at->format('Y年m月d日 H時i分s秒');
-        $j = 3;
-      }
-      $answer_lists[$i][$j] = $answer->correct;
-      $j++;
-    }
-    return $answer_lists;
-  }
-
-  public function answer_delete($id)
-  {
-    E_answer::where('user_id', $id)->delete();
-  }
-
-  public function group_user_index()
-  {
-    return User::where('role', '!=', 1)->where('role', '!=', 10)->select('id', 'name')->get();
-  }
-
-  public function group_join($e_groups_id, Request $request)
-  {
-    $user = E_owner::where('e_groups_id', $e_groups_id)->where('user_id', $request->id)->first();
-    if($user == null){
-      $e_owner = new E_owner;
-      $e_owner->user_id = $request->id;
-      $e_owner->e_groups_id = $e_groups_id;
-      $e_owner->save();
-      return response($request, 201);
-    }
-    else return response($request, 400);
-  }
-
-  public function class_user_index()
-  {
-    return User::where('role', '!=', 1)->select('id', 'name')->get();
-  }
-
-  public function class_join1($e_classes_id, Request $request)
-  {
-    $user = E_member::where('e_classes_id', $e_classes_id)->where('user_id', $request->id)->first();
-    if($user == null){
-      $e_member = new E_member;
-      $e_member->user_id = $request->id;
-      $e_member->e_classes_id = $e_classes_id;
-      $e_member->save();
-      return response($request, 201);
-    }
-    else return response($request, 400);
-  }
-
-  public function class_join2(Request $request)
-  {
-    if($request->pass_code != null){
-      $e_class = E_class::where('pass_code', $request->pass_code)->first();
-      if($e_class == null || $e_class->updated_at < date("Y-m-d",strtotime("-10 day"))) return response($request, 400);
-      else{
-        $e_member = new E_member;
-        $e_member->user_id = Auth::user()->id;
-        $e_member->e_classes_id = $e_class->id;
-        $e_member->save();
-        return response($request, 201);
-      }
-    }
-  }
 
 }

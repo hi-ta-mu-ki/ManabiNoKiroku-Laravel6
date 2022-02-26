@@ -60,19 +60,19 @@ export default {
       this.getSelectedTitles();
     },
     getSectionTitles() {
-      axios.get('/api/e_learning2/tc_menu2/' + this.e_classes_id)
+      axios.get('/api/e_learning2/section_menu2/' + this.e_classes_id)
         .then((res) => {
           this.section_titles = res.data;
         });
     },
     getSelectedTitles() {
-      axios.get('/api/e_learning2/tc_select/' + this.e_classes_id)
+      axios.get('/api/e_learning2/select_title/' + this.e_classes_id)
         .then((res) => {
           this.selected_titles = res.data;
         });
     },
     submit() {
-      axios.put('/api/e_learning2/tc_setting/' + this.e_classes_id, this.selected_titles)
+      axios.put('/api/e_learning2/question_setting/' + this.e_classes_id, this.selected_titles)
         .then((res) => {
             this.$router.push({name: 'tc.list'})
         });

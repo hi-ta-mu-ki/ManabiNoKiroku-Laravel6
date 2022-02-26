@@ -151,7 +151,7 @@
       if(this.q_csv != null) {
         const formData = new FormData()
         formData.append('csvfile', this.q_csv[0])
-        const response = await axios.post('/api/e_learning2/tc/import', formData)
+        const response = await axios.post('/api/e_learning2/question/import', formData)
         if (response.status === UNPROCESSABLE_ENTITY) {
           this.errors = response.data.errors
           this.select1 = false
@@ -173,7 +173,7 @@
       if(this.q_csv != null) {
         const formData = new FormData()
         formData.append('csvfile', this.q_csv[0])
-        const response = await axios.post('/api/e_learning2/tc/import2', formData)
+        const response = await axios.post('/api/e_learning2/question/import2', formData)
         if (response.status === UNPROCESSABLE_ENTITY) {
           this.errors = response.data.errors
           return false

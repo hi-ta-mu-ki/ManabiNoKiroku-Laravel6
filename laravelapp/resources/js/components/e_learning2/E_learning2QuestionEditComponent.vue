@@ -16,7 +16,7 @@
           <button class="btn btn-success" @click="showForm = ! showForm">画像をアップロード</button>
         </div>
         <div class="row mb-1">
-          <E_learning2PhotoUploadForm v-model="showForm" />
+          <E_learning2QuestionImageUploadForm v-model="showForm" />
         </div>
         <form @submit.prevent="submit">
           <div class="form-group row">
@@ -84,10 +84,10 @@
 </template>
 
 <script>
-import E_learning2PhotoUploadForm from './E_learning2PhotoUploadForm.vue'
+import E_learning2QuestionImageUploadForm from './E_learning2QuestionImageUploadForm.vue'
 export default {
   components: {
-    E_learning2PhotoUploadForm
+    E_learning2QuestionImageUploadForm
   },
   props: {
     questionId: 0
@@ -100,13 +100,13 @@ export default {
   },
   methods: {
     getQuestion() {
-      axios.get('/api/e_learning2/tc/' + this.questionId)
+      axios.get('/api/e_learning2/question/' + this.questionId)
         .then((res) => {
           this.question = res.data;
         });
     },
     submit() {
-      axios.put('/api/e_learning2/tc/' + this.questionId, this.question)
+      axios.put('/api/e_learning2/question/' + this.questionId, this.question)
         .then((res) => {
           this.$router.push({name: 'tc.list'})
         });
