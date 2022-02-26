@@ -24,17 +24,6 @@ use SplFileObject;
 
 class E_learning2Controller extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
-
-//  public function index()
-//  {
-//    $user_id = Auth::user()->id;
-//    $items = E_member::where('user_id', $user_id)->select('e_groups_id')->getQuery();
-//    return Exercise::whereIn('e_groups_id', $items)->get();
-//  }
 
   public function show(Exercise $id)
   {
@@ -60,9 +49,6 @@ class E_learning2Controller extends Controller
 
   public function tc_menu($e_groups_id)
   {
-//    $user_id = Auth::user()->id;
-//    $items = E_member::where('user_id', $user_id)->select('e_groups_id')->getQuery();
-//    return Exercise::where('q_no', 0)->whereIn('e_groups_id', $items)->get();
     return Exercise::where('q_no', 0)->where('e_groups_id', $e_groups_id)->get();
   }
 
@@ -104,13 +90,17 @@ class E_learning2Controller extends Controller
 
   public function member_list($e_classes_id)
   {
-    $member = E_member::where('e_classes_id', $e_classes_id)->with('user')->orderBy('user_id', 'asc')->get();
-    return $member->sortBy('user.role')->values();
+    return E_member::where('e_classes_id', $e_classes_id)->with(['user' => function ($query) {$query->orderBy('role', 'asc');}])->orderBy('user_id', 'asc')->get();
   }
 
   public function member_list_delete($id)
   {
     E_member::where('user_id', $id)->delete();
+  }
+
+  public function member_list2($e_classes_id)
+  {
+    return E_member::select('user_id','name')->join('users', 'users.id','=','e_members.user_id')->where('e_classes_id', $e_classes_id)->where('role', 10)->orderBy('user_id', 'asc')->get();
   }
 
   public function select_title($e_classes_id)

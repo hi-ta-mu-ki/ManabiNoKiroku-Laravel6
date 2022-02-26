@@ -22,7 +22,6 @@
           <th scope="col">名前</th>
           <th scope="col">役割</th>
           <th scope="col"></th>
-          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -32,13 +31,6 @@
               <div v-if="user.user.role == 1">管理者</div>
               <div v-else-if="user.user.role == 5">教員</div>
               <div v-else>生徒</div>
-            </td>
-            <td>
-              <div v-if="user.user.role == 10">
-                <router-link v-bind:to="{name: 'tc.answer3', params: {id: user.user_id, name: user.user.name }}">
-                  <button class="btn btn-warning">成績</button>
-                </router-link>
-              </div>
             </td>
             <td>
               <button class="btn btn-danger" v-confirm="onAlert(user.user_id)">削除</button>
@@ -71,7 +63,7 @@ export default {
           this.classes_menus = res.data;
         });
     },
-    getusers() {
+    getUsers() {
       axios.get('/api/e_learning2/member_list/' + this.e_classes_id)
         .then((res) => {
           this.users = res.data;
@@ -80,7 +72,7 @@ export default {
     makeAdmin:function(dialog, id) {
       axios.delete('/api/e_learning2/st/answer/' + id);
       axios.delete('/api/e_learning2/member_list/' + id);
-      this.getusers();
+      this.getUsers();
       dialog.close();
     },
     doNothing:function() {
@@ -99,14 +91,14 @@ export default {
     jump: function() {
       this.$store.commit('auth_e_learning2/setE_Classes_Id', this.e_classes_id)
       this.isClassSelect = true;
-      this.getusers();
+      this.getUsers();
     },
     openModal: function(){
       this.$modal.show('modal_member_add');
     },
     closeModal: function(){
       this.$modal.hide('modal_member_add');
-      this.getusers();
+      this.getUsers();
     },
   },
   mounted() {

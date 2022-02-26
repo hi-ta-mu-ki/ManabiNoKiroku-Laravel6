@@ -7,7 +7,10 @@
         <button class="btn btn-success">グループ設定</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.member'}">
-        <button class="btn btn-success">クラス生徒一覧</button>
+        <button class="btn btn-success">クラス生徒設定</button>
+        </router-link>
+        <router-link v-bind:to="{name: 'tc.record'}">
+          <button class="btn btn-success">生徒個人記録</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.setting'}">
           <button class="btn btn-success">問題実施設定</button>

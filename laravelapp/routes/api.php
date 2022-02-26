@@ -37,6 +37,7 @@ Route::get('/e_learning2/owner_list/{e_groups_id}', 'E_learning2Controller@owner
 Route::delete('/e_learning2/owner_list/{user_id}', 'E_learning2Controller@owner_list_delete');
 Route::get('/e_learning2/member_list/{e_classes_id}', 'E_learning2Controller@member_list');
 Route::delete('/e_learning2/member_list/{user_id}', 'E_learning2Controller@member_list_delete');
+Route::get('/e_learning2/member_list2/{e_classes_id}', 'E_learning2Controller@member_list2');
 Route::get('/e_learning2/tc_select/{e_classes_id}', 'E_learning2Controller@select_title');
 Route::put('/e_learning2/tc_setting/{e_classes_id}', 'E_learning2Controller@setting');
 Route::get('/e_learning2/group', 'E_learning2Controller@group_index');

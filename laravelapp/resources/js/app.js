@@ -27,9 +27,9 @@ import E_learning2QuestionCreateComponent from "./components/e_learning2/E_learn
 import E_learning2QuestionEditComponent from "./components/e_learning2/E_learning2QuestionEditComponent";
 import E_learning2QuestionCsvComponent from "./components/e_learning2/E_learning2QuestionCsvComponent";
 import E_learning2AnswerListComponent from "./components/e_learning2/E_learning2AnswerListComponent";
-import E_learning2AnswerList3Component from "./components/e_learning2/E_learning2AnswerList3Component";
 import E_learning2OwnerListComponent from "./components/e_learning2/E_learning2OwnerListComponent";
 import E_learning2MemberListComponent from "./components/e_learning2/E_learning2MemberListComponent";
+import E_learning2MemberRecordComponent from "./components/e_learning2/E_learning2MemberRecordComponent";
 import E_learning2QuestionSettingComponent from "./components/e_learning2/E_learning2QuestionSettingComponent";
 import E_learning2GroupListComponent from "./components/e_learning2/E_learning2GroupListComponent";
 import E_learning2GroupCreateComponent from "./components/e_learning2/E_learning2GroupCreateComponent";
@@ -132,6 +132,11 @@ const router = new VueRouter({
             component: E_learning2MemberListComponent
           },
           {
+            path: 'member_record',
+            name: 'tc.record',
+            component: E_learning2MemberRecordComponent
+          },
+          {
             path: 'setting',
             name: 'tc.setting',
             component: E_learning2QuestionSettingComponent
@@ -220,12 +225,6 @@ const router = new VueRouter({
             props: true
           },
         ]
-    },
-    {
-      path: '/e_learning2/tc/answer3/:id',
-      name: 'tc.answer3',
-      component: E_learning2AnswerList3Component,
-      props: true
     },
     {
       path: '/e_learning2/500',
