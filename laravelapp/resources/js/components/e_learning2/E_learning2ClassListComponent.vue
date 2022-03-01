@@ -51,18 +51,18 @@ export default {
     getclasses() {
       axios.get('/api/e_learning2/class_list/' + this.groupId)
         .then((res) => {
-          this.items = res.data;
-        });
+          this.items = res.data
+        })
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/class/' + id);
-      this.getclasses();
-      dialog.close();
+      axios.delete('/api/e_learning2/class/' + id)
+      this.getclasses()
+      dialog.close()
     },
     doNothing:function() {
     },
     onAlert:function(id) {
-      let self = this;
+      let self = this
       return {
           ok: function(dialog){self.makeAdmin(dialog, id)},
           cancel: this.doNothing(),
@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    this.getclasses();
+    this.getclasses()
   }
 }
 </script>

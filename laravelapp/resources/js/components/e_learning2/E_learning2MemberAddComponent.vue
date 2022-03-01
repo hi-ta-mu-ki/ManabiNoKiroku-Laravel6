@@ -51,22 +51,22 @@ export default {
     getusers() {
       axios.get('/api/e_learning2/class_join1')
         .then((res) => {
-          this.users = res.data;
+          this.users = res.data
         });
     },
     clickEvent: function() {
-      this.$emit('from-child');
+      this.$emit('from-child')
     },
     submit() {
       axios.post('/api/e_learning2/class_join1/' + this.e_classes_id, this.joinForm)
         .then((res) => {
           if(res.status== 201)
-            this.$emit('from-child');
+            this.$emit('from-child')
           else{
             this.isMsg = true;
-            this.msg = '登録できません';
+            this.msg = '登録できません'
           }
-        });
+        })
     },
   },
   computed: {

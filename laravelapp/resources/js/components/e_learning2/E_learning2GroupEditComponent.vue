@@ -32,8 +32,8 @@ export default {
     getgroup() {
       axios.get('/api/e_learning2/group/' + this.groupId)
         .then((res) => {
-          this.group = res.data;
-        });
+          this.group = res.data
+        })
     },
     submit() {
       axios.put('/api/e_learning2/group/' + this.groupId, this.group)
@@ -41,14 +41,14 @@ export default {
           if(res.status== 200)
             this.$router.push({name: 'tc.grouplist'})
           else{
-            this.isMsg = true;
-            this.msg = 'すでに使用されているグループ名です';
+            this.isMsg = true
+            this.msg = 'すでに使用されているグループ名です'
           }
-        });
+        })
     }
   },
   mounted() {
-    this.getgroup();
+    this.getgroup()
   }
 }
 </script>

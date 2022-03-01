@@ -37,25 +37,25 @@ export default {
     getQuestions() {
       axios.get('/api/e_learning2/question/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
-          this.questions = res.data;
-          this.n = this.questions.length - 1;
+          this.questions = res.data
+          this.n = this.questions.length - 1
         });
     },
     getAnswers() {
       axios.get('/api/e_learning2/question/answer/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
-          this.answers = res.data;
+          this.answers = res.data
         });
     },
     downloadExcelFile() {
       const data = this.$refs.table
-      const wb = XLSX.utils.table_to_book(data);
-      XLSX.writeFile(wb,'e_learning2_answer_list.xlsx');
+      const wb = XLSX.utils.table_to_book(data)
+      XLSX.writeFile(wb,'e_learning2_answer_list.xlsx')
     },
   },
   mounted() {
-    this.getAnswers();
-    this.getQuestions();
+    this.getAnswers()
+    this.getQuestions()
   }
 }
 </script>

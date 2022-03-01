@@ -107,18 +107,18 @@ export default {
     getGroupsMenu() {
       axios.get('/api/e_learning2/groups_menu')
         .then((res) => {
-          this.groups_menus = res.data;
-        });
+          this.groups_menus = res.data
+        })
     },
     submit() {
       axios.post('/api/e_learning2/question', this.question)
         .then((res) => {
-          this.$router.push({name: 'tc.list'});
-        });
+          this.$router.push({name: 'tc.questionlist'})
+        })
     }
   },
   mounted() {
-    this.getGroupsMenu();
+    this.getGroupsMenu()
   }
 }
 </script>

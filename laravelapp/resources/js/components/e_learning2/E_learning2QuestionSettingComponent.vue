@@ -51,31 +51,31 @@ export default {
     getClassesMenu() {
       axios.get('/api/e_learning2/classes_menu')
         .then((res) => {
-          this.classes_menus = res.data;
-        });
+          this.classes_menus = res.data
+        })
     },
     jump: function() {
-      this.isClassSelect = true;
-      this.getSectionTitles();
-      this.getSelectedTitles();
+      this.isClassSelect = true
+      this.getSectionTitles()
+      this.getSelectedTitles()
     },
     getSectionTitles() {
       axios.get('/api/e_learning2/section_menu2/' + this.e_classes_id)
         .then((res) => {
-          this.section_titles = res.data;
-        });
+          this.section_titles = res.data
+        })
     },
     getSelectedTitles() {
       axios.get('/api/e_learning2/select_title/' + this.e_classes_id)
         .then((res) => {
-          this.selected_titles = res.data;
-        });
+          this.selected_titles = res.data
+        })
     },
     submit() {
       axios.put('/api/e_learning2/question_setting/' + this.e_classes_id, this.selected_titles)
         .then((res) => {
-            this.$router.push({name: 'tc.list'})
-        });
+            this.$router.push(`/e_learning2/tc`)
+        })
     }
   },
   mounted() {

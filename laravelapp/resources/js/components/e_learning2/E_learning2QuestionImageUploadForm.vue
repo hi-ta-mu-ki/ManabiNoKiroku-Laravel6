@@ -79,9 +79,9 @@ export default {
 
     //inputタグとドラッグ&ドロップから呼ばれる
     onDrop (event) {
-      this.isDrag = null; //ドラッグ中のクラスを外しておく。
-      this.select = true;
-      this.photo = event.target.files ? event.target.files : event.dataTransfer.files; //ファイル取得
+      this.isDrag = null //ドラッグ中のクラスを外しておく。
+      this.select = true
+      this.photo = event.target.files ? event.target.files : event.dataTransfer.files //ファイル取得
       console.log(this.photo)
       // 何も選択されていなかったら処理中断
       if (this.photo.length !== 1) {

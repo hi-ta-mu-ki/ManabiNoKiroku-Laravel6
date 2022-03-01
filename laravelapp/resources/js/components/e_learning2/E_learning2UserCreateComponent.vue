@@ -42,8 +42,8 @@ export default {
     submit() {
       axios.post('/api/e_learning2/ad', this.user)
         .then((res) => {
-          this.$router.push({name: 'ad.list'});
-        });
+          this.$router.push({name: 'ad.userlist'})
+        })
     }
   }
 }

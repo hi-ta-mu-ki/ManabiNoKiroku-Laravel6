@@ -60,25 +60,25 @@ export default {
     getClassesMenu() {
       axios.get('/api/e_learning2/classes_menu')
         .then((res) => {
-          this.classes_menus = res.data;
+          this.classes_menus = res.data
         });
     },
     getUsers() {
       axios.get('/api/e_learning2/member_list/' + this.e_classes_id)
         .then((res) => {
-          this.users = res.data;
+          this.users = res.data
         });
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/st/answer/' + id);
-      axios.delete('/api/e_learning2/member_list/' + id);
-      this.getUsers();
-      dialog.close();
+      axios.delete('/api/e_learning2/st/answer/' + id)
+      axios.delete('/api/e_learning2/member_list/' + id)
+      this.getUsers()
+      dialog.close()
     },
     doNothing:function() {
     },
     onAlert:function(id) {
-      let self = this;
+      let self = this
       return {
         ok: function(dialog){self.makeAdmin(dialog, id)},
         cancel: this.doNothing(),
@@ -90,19 +90,19 @@ export default {
     },
     jump: function() {
       this.$store.commit('auth_e_learning2/setE_Classes_Id', this.e_classes_id)
-      this.isClassSelect = true;
-      this.getUsers();
+      this.isClassSelect = true
+      this.getUsers()
     },
     openModal: function(){
       this.$modal.show('modal_member_add');
     },
     closeModal: function(){
       this.$modal.hide('modal_member_add');
-      this.getUsers();
+      this.getUsers()
     },
   },
   mounted() {
-    this.getClassesMenu();
+    this.getClassesMenu()
   }
 }
 </script>

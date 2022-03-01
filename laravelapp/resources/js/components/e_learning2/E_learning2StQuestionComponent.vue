@@ -133,60 +133,60 @@ export default {
     getClassesMenu() {
       axios.get('/api/e_learning2/classes_menu')
         .then((res) => {
-          this.classes_menus = res.data;
-        });
+          this.classes_menus = res.data
+        })
     },
     getQuestionsMenu() {
       axios.get('/api/e_learning2/st_menu/' + this.e_classes_id)
         .then((res) => {
-          this.questions_menu = res.data;
-        });
+          this.questions_menu = res.data
+        })
     },
     getQuestions() {
       axios.get('/api/e_learning2/st/' + this.e_classes_id + '/' + this.no)
         .then((res) => {
-          this.questions = res.data;
-          this.question_num = this.questions.length;
-        });
+          this.questions = res.data
+          this.question_num = this.questions.length
+        })
     },
     addAnswer: function(index) {
-      this.answers.push(index);
-      const formData = new FormData();
-      formData.append('user_id', this.user_id);
-      formData.append('e_classes_id', this.e_classes_id);
-      formData.append('s_id', this.s_id);
-      formData.append('no', this.no);
-      formData.append('q_no', this.questionIndex + 1);
-      let correct;
+      this.answers.push(index)
+      const formData = new FormData()
+      formData.append('user_id', this.user_id)
+      formData.append('e_classes_id', this.e_classes_id)
+      formData.append('s_id', this.s_id)
+      formData.append('no', this.no)
+      formData.append('q_no', this.questionIndex + 1)
+      let correct
       if(this.questions[this.questionIndex].ans == index){
-        correct = 1;
-        this.correct++;
+        correct = 1
+        this.correct++
       }
-      else correct = 0;
-      this.corrects.push(correct);
-      formData.append('correct', correct);
-      axios.post('/api/e_learning2/st/answer', formData);
-      return this.answered = true;
+      else correct = 0
+      this.corrects.push(correct)
+      formData.append('correct', correct)
+      axios.post('/api/e_learning2/st/answer', formData)
+      return this.answered = true
     },
     nextQuestion: function() {
       if(!this.completed) {
-        this.questionIndex++;
-        return this.answered = false;
+        this.questionIndex++
+        return this.answered = false
       }
     },
     jump1: function() {
       this.isClassSelect = true
-      this.getQuestionsMenu();
-      if(this.no != null) this.getQuestions();
+      this.getQuestionsMenu()
+      if(this.no != null) this.getQuestions()
     },
     jump2: function() {
-      this.questionIndex = 0;
-      this.answers.length = 0;
-      this.answered = false;
-      this.correct = 0;
-      this.getQuestions();
-      const date= new Date();
-      this.s_id = date.getTime() / 1000;
+      this.questionIndex = 0
+      this.answers.length = 0
+      this.answered = false
+      this.correct = 0
+      this.getQuestions()
+      const date= new Date()
+      this.s_id = date.getTime() / 1000
     },
     async logout () {
       await this.$store.dispatch('auth_e_learning2/logout')
@@ -203,17 +203,17 @@ export default {
   },
   computed: {
     currentQuestion: function() {
-      return this.questions[this.questionIndex];
+      return this.questions[this.questionIndex]
     },
     completed: function() {
-      return (this.questions.length == this.answers.length);
+      return (this.questions.length == this.answers.length)
     },
     ...mapState({
       apiStatus: state => state.auth_e_learning2.apiStatus
     })
   },
   mounted() {
-    this.getClassesMenu();
+    this.getClassesMenu()
     this.user_id = this.$store.getters['auth_e_learning2/id']
   }
 }

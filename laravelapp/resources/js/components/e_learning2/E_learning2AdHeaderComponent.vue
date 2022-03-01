@@ -3,13 +3,13 @@
     <nav class="navbar navbar-dark">
       <span class="navbar-brand mb-0 h1">まなびのきろく３　ユーザ管理</span>
       <div>
-        <router-link v-bind:to="{name: 'ad.list'}">
+        <router-link v-bind:to="{name: 'ad.userlist'}">
           <button class="btn btn-success">ユーザ一覧</button>
         </router-link>
-        <router-link v-bind:to="{name: 'ad.create'}">
+        <router-link v-bind:to="{name: 'ad.usercreate'}">
           <button class="btn btn-success">ユーザ追加</button>
         </router-link>
-        <router-link v-bind:to="{name: 'ad.import'}">
+        <router-link v-bind:to="{name: 'ad.userimport'}">
           <button class="btn btn-success">CSV インポート</button>
         </router-link>
         <button class="btn btn-secondary" @click="logout">ログアウト</button>

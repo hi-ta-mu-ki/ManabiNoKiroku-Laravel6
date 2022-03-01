@@ -78,7 +78,7 @@ export default {
     getAnswers() {
       axios.get('/api/e_learning2/st/answer/' + this.user_id + '/' + this.e_classes_id)
         .then((res) => {
-          this.answers = res.data;
+          this.answers = res.data
           for(let i = 0; i < this.answers.length; i++) {
             if(this.n < this.answers[i].length)
               this.n = this.answers[i].length;
@@ -89,27 +89,27 @@ export default {
       this.$emit('from-child')
     },
     paginateClickCallback: function (pageNum) {
-      this.currentPage = Number(pageNum);
+      this.currentPage = Number(pageNum)
     },
   },
   computed: {
     getItems: function () {
-      let start = (this.currentPage - 1) * this.perPage;
-      let end = this.currentPage * this.perPage;
-      this.items = this.answers.slice(start, end);
-      this.n = 0;
+      let start = (this.currentPage - 1) * this.perPage
+      let end = this.currentPage * this.perPage
+      this.items = this.answers.slice(start, end)
+      this.n = 0
       for(let i = 0; i < this.items.length; i++){
         if(this.n < this.items[i].length)
-          this.n = this.items[i].length;
+          this.n = this.items[i].length
       }
-      return this.items;
+      return this.items
     },
     getPaginateCount: function () {
-      return Math.ceil(this.answers.length / this.perPage);
+      return Math.ceil(this.answers.length / this.perPage)
     },
   },
   mounted() {
-    this.getAnswers();
+    this.getAnswers()
   }
 }
 </script>

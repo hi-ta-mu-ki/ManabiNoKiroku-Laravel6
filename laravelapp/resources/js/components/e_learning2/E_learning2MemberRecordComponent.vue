@@ -58,19 +58,19 @@ export default {
     getClassesMenu() {
       axios.get('/api/e_learning2/classes_menu')
         .then((res) => {
-          this.classes_menus = res.data;
-        });
+          this.classes_menus = res.data
+        })
     },
     getUsers() {
       axios.get('/api/e_learning2/member_list2/' + this.e_classes_id)
         .then((res) => {
-          this.users = res.data;
-        });
+          this.users = res.data
+        })
     },
     getAnswers() {
       axios.get('/api/e_learning2/st/answer/'+ this.user_id + '/' + this.$store.getters['auth_e_learning2/e_classes_id'])
         .then((res) => {
-          this.answers = res.data;
+          this.answers = res.data
           for(let i = 0; i < this.answers.length; i++) {
             if(this.n < this.answers[i].length)
               this.n = this.answers[i].length;
@@ -79,21 +79,21 @@ export default {
     },
     downloadExcelFile() {
       const data = this.$refs.table
-      const wb = XLSX.utils.table_to_book(data);
-      XLSX.writeFile(wb,'e_learning2_answer_list.xlsx');
+      const wb = XLSX.utils.table_to_book(data)
+      XLSX.writeFile(wb,'e_learning2_answer_list.xlsx')
     },
     jump1: function() {
       this.$store.commit('auth_e_learning2/setE_Classes_Id', this.e_classes_id)
-      this.isClassSelect = true;
-      this.getUsers();
+      this.isClassSelect = true
+      this.getUsers()
     },
     jump2: function() {
-      this.isUserSelect = true;
-      this.getAnswers();
+      this.isUserSelect = true
+      this.getAnswers()
     },
   },
   mounted() {
-    this.getClassesMenu();
+    this.getClassesMenu()
   }
 }
 </script>

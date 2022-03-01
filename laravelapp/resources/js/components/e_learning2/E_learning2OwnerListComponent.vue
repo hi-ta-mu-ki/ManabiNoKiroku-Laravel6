@@ -47,19 +47,19 @@ export default {
    getusers() {
       axios.get('/api/e_learning2/owner_list/' + this.groupId)
         .then((res) => {
-          this.users = res.data;
-          this.cnt = this.users.length;
-        });
+          this.users = res.data
+          this.cnt = this.users.length
+        })
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/owner_list/' + id);
-      this.getusers();
-      dialog.close();
+      axios.delete('/api/e_learning2/owner_list/' + id)
+      this.getusers()
+      dialog.close()
     },
     doNothing:function() {
     },
     onAlert:function(id) {
-      let self = this;
+      let self = this
       return {
         ok: function(dialog){self.makeAdmin(dialog, id)},
         cancel: this.doNothing(),
@@ -70,16 +70,16 @@ export default {
       };
     },
     openModal: function(){
-      this.$modal.show('modal_owner_add');
+      this.$modal.show('modal_owner_add')
     },
     closeModal: function(){
-      this.$modal.hide('modal_owner_add');
-      this.getusers();
+      this.$modal.hide('modal_owner_add')
+      this.getusers()
     },
   },
   mounted() {
     this.$store.commit('auth_e_learning2/setE_Groups_Id', this.groupId)
-    this.getusers();
+    this.getusers()
   }
 }
 </script>

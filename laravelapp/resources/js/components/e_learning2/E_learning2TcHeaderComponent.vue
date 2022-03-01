@@ -15,13 +15,13 @@
         <router-link v-bind:to="{name: 'tc.setting'}">
           <button class="btn btn-success">問題実施設定</button>
         </router-link>
-        <router-link v-bind:to="{name: 'tc.list'}">
+        <router-link v-bind:to="{name: 'tc.questionlist'}">
           <button class="btn btn-success">問題一覧</button>
         </router-link>
-        <router-link v-bind:to="{name: 'tc.create'}">
+        <router-link v-bind:to="{name: 'tc.questioncreate'}">
           <button class="btn btn-success">問題作成</button>
         </router-link>
-        <router-link v-bind:to="{name: 'tc.import'}">
+        <router-link v-bind:to="{name: 'tc.questionimport'}">
           <button class="btn btn-success">問題 CSV インポート</button>
         </router-link>
         <router-link v-bind:to="{name: 'tc.join'}">

@@ -42,8 +42,8 @@ export default {
     getclass() {
       axios.get('/api/e_learning2/class/' + this.classId)
         .then((res) => {
-          this.clas = res.data;
-        });
+          this.clas = res.data
+        })
     },
     submit() {
       axios.put('/api/e_learning2/class/' + this.classId, this.clas)
@@ -51,14 +51,14 @@ export default {
           if(res.status== 200)
             this.$router.push({name: 'tc.classlist'})
           else{
-            this.isMsg = true;
+            this.isMsg = true
             this.msg = 'すでに使用されているクラス名，または，パスコードです';
           }
-        });
+        })
     }
   },
   mounted() {
-    this.getclass();
+    this.getclass()
   }
 }
 </script>

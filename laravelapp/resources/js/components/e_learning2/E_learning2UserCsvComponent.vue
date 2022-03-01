@@ -95,13 +95,12 @@ export default {
       let reader = new FileReader();
       reader.readAsText(this.u_csv[0], "Shift_JIS");
       reader.onload = () => {
-        let lines = reader.result.split("\n");
-  //        lines.shift();
-        let linesArr = [];
+        let lines = reader.result.split("\n")
+        let linesArr = []
         for (let i = 1; i < lines.length; i++) {
-          linesArr[i] = lines[i].split(",");
+          linesArr[i] = lines[i].split(",")
         }
-        this.users = linesArr;
+        this.users = linesArr
       }
     },
     // 入力欄の値とプレビュー表示をクリアするメソッド
@@ -131,7 +130,7 @@ export default {
         }
         this.reset()
         this.$emit('input', false)
-        this.$router.push(`/e_learning2/ad`)
+        this.$router.push({name: 'ad.userlist'})
       }
     },
     async submit2 () {
@@ -149,7 +148,7 @@ export default {
         }
         this.reset()
         this.$emit('input', false)
-        this.$router.push(`/e_learning2/ad`)
+        this.$router.push({name: 'ad.userlist'})
       }
     }
   }

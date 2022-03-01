@@ -88,10 +88,10 @@
     },
     // フォームでファイルが選択されたら実行される
     onDrop (event) {
-      this.isDrag = null; //ドラッグ中のクラスを外しておく。
-      this.select1 = true;
-      this.validate = true;
-      this.q_csv = event.target.files ? event.target.files : event.dataTransfer.files; //ファイル取得
+      this.isDrag = null //ドラッグ中のクラスを外しておく。
+      this.select1 = true
+      this.validate = true
+      this.q_csv = event.target.files ? event.target.files : event.dataTransfer.files //ファイル取得
       // 何も選択されていなかったら処理中断
       if (this.q_csv.length === 0) {
         this.reset()
@@ -102,38 +102,37 @@
         this.reset()
         return false
       }
-      this.filename = this.q_csv[0].name;
-      let reader = new FileReader();
-      reader.readAsText(this.q_csv[0], "Shift_JIS");
+      this.filename = this.q_csv[0].name
+      let reader = new FileReader()
+      reader.readAsText(this.q_csv[0], "Shift_JIS")
       reader.onload = () => {
-        let lines = reader.result.split("\n");
-//        lines.shift();
-        let linesArr = [];
+        let lines = reader.result.split("\n")
+        let linesArr = []
         for (let i = 1; i < lines.length - 1; i++) {
-          linesArr[i] = lines[i].split(",");
+          linesArr[i] = lines[i].split(",")
         }
         for (let i = 1;  i < linesArr.length; i++) {
           if (Number.isInteger(linesArr[i][0]*1) == false) {
-            linesArr[i][0] = '<div class="alert-danger">' + linesArr[i][0] + '</div>';
+            linesArr[i][0] = '<div class="alert-danger">' + linesArr[i][0] + '</div>'
             this.validate = false
           }
           if (Number.isInteger(linesArr[i][1]*1) == false) {
-            linesArr[i][1] = '<div class="alert-danger">' + linesArr[i][1] + '</div>';
+            linesArr[i][1] = '<div class="alert-danger">' + linesArr[i][1] + '</div>'
             this.validate = false
           }
           if (Number.isInteger(linesArr[i][2]*1) == false) {
-            linesArr[i][2] = '<div class="alert-danger">' + linesArr[i][7] + '</div>';
+            linesArr[i][2] = '<div class="alert-danger">' + linesArr[i][7] + '</div>'
             this.validate = false
           }
           if (Number.isInteger(linesArr[i][8]*1) == false) {
-            linesArr[i][8] = '<div class="alert-danger">' + linesArr[i][7] + '</div>';
+            linesArr[i][8] = '<div class="alert-danger">' + linesArr[i][7] + '</div>'
             this.validate = false
           }        }
         if(this.validate == false) {
-            this.select1 = false;
+            this.select1 = false
             this.error_mes = "整数値であるべき項目に文字があります。一度ファイル選択をキャンセルし，データを修正してからやり直してください。"
         }
-        this.questions = linesArr;
+        this.questions = linesArr
       }
     },
     // 入力欄の値とプレビュー表示をクリアするメソッド
@@ -144,8 +143,8 @@
       this.$el.querySelector('input[type="file"]').value = null
       this.select1 = false
       this.select2 = false
-      this.error_mes = null;
-      this.validate = true;
+      this.error_mes = null
+      this.validate = true
     },
     async submit () {
       if(this.q_csv != null) {
@@ -166,7 +165,7 @@
         this.reset()
         this.$emit('input', false)
 
-        this.$router.push(`/e_learning2/tc`)
+        this.$router.push(`/e_learning2/tc/questionlist`)
       }
     },
     async submit2 () {
@@ -184,7 +183,7 @@
         }
         this.reset()
         this.$emit('input', false)
-        this.$router.push(`/e_learning2/tc`)
+        this.$router.push(`/e_learning2/tc/questionlist`)
       }
     }
   }

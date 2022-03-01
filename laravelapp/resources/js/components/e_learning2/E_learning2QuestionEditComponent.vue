@@ -102,13 +102,13 @@ export default {
     getQuestion() {
       axios.get('/api/e_learning2/question/' + this.questionId)
         .then((res) => {
-          this.question = res.data;
-        });
+          this.question = res.data
+        })
     },
     submit() {
       axios.put('/api/e_learning2/question/' + this.questionId, this.question)
         .then((res) => {
-          this.$router.push({name: 'tc.list'})
+          this.$router.push({name: 'tc.questionlist'})
         });
     }
   },

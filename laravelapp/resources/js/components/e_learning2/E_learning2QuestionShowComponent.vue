@@ -68,21 +68,21 @@ export default {
     getQuestions() {
       axios.get('/api/e_learning2/question/' + this.questionId)
         .then((res) => {
-          this.questions = res.data;
-        });
+          this.questions = res.data
+        })
     },
     addAnswer: function(index) {
-      this.answers.push(index);
-      return this.answered = true;
+      this.answers.push(index)
+      return this.answered = true
     },
     },
   computed: {
     currentQuestion: function() {
-      return this.questions;
+      return this.questions
     },
   },
   mounted() {
-    this.getQuestions();
+    this.getQuestions()
   }
 }
 </script>

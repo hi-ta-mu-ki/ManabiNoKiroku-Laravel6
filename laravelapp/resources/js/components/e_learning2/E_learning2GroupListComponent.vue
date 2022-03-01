@@ -58,18 +58,18 @@ export default {
     getgroups() {
       axios.get('/api/e_learning2/group')
         .then((res) => {
-          this.groups = res.data;
-        });
+          this.groups = res.data
+        })
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/group/' + id);
-      this.getgroups();
-      dialog.close();
+      axios.delete('/api/e_learning2/group/' + id)
+      this.getgroups()
+      dialog.close()
     },
     doNothing:function() {
     },
     onAlert:function(id) {
-      let self = this;
+      let self = this
       return {
           ok: function(dialog){self.makeAdmin(dialog, id)},
           cancel: this.doNothing(),
@@ -77,11 +77,11 @@ export default {
             title: '確認',
             body: 'このグループの問題，クラス，所属する生徒，成績のすべてを削除します。よろしいですか？'
           }
-      };
+      }
     }
   },
   mounted() {
-    this.getgroups();
+    this.getgroups()
   }
 }
 </script>

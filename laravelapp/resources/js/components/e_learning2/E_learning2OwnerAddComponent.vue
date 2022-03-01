@@ -51,41 +51,41 @@ export default {
     getusers() {
       axios.get('/api/e_learning2/group_join')
         .then((res) => {
-          this.users = res.data;
-        });
+          this.users = res.data
+        })
     },
     clickEvent: function() {
-      this.$emit('from-child');
+      this.$emit('from-child')
     },
     submit() {
       axios.post('/api/e_learning2/group_join/' + this.e_groups_id, this.joinForm)
         .then((res) => {
           if(res.status== 201)
-            this.$emit('from-child');
+            this.$emit('from-child')
           else{
-            this.isMsg = true;
-            this.msg = '登録できません';
+            this.isMsg = true
+            this.msg = '登録できません'
           }
-        });
+        })
     },
   },
   computed: {
     filteredUsers: function() {
       var users = [];
       for(var i in this.users) {
-          var user  = this.users[i];
+          var user  = this.users[i]
           if(user.name.indexOf(this.keyword) !== -1) {
-              users.push(user);
+              users.push(user)
           }
       }
-      this.cnt = users.length;
-      if(this.cnt == 1) this.joinForm.id = users[0].id;
-      this.isMsg = false;
-      return users;
+      this.cnt = users.length
+      if(this.cnt == 1) this.joinForm.id = users[0].id
+      this.isMsg = false
+      return users
     }
   },
   mounted() {
-    this.getusers();
+    this.getusers()
   }
 }
 </script>

@@ -45,15 +45,15 @@ export default {
     getUser() {
       axios.get('/api/e_learning2/ad/' + this.userId)
         .then((res) => {
-          this.user = res.data;
-          if(this.user.role < 6) this.user.password = null;
-          else this.user.password = this.user.password_raw;
-        });
+          this.user = res.data
+          if(this.user.role < 6) this.user.password = null
+          else this.user.password = this.user.password_raw
+        })
     },
     submit() {
       axios.put('/api/e_learning2/ad/' + this.userId, this.user)
         .then((res) => {
-          this.$router.push({name: 'ad.list'})
+          this.$router.push({name: 'ad.userlist'})
         });
     }
   },

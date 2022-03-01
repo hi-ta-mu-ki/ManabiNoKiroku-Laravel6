@@ -46,24 +46,24 @@ export default {
     getgroup() {
       axios.get('/api/e_learning2/group/' + this.groupId)
         .then((res) => {
-          this.group = res.data;
-        });
+          this.group = res.data
+        })
     },
     submit() {
-      this.clas.e_groups_id = this.groupId;
+      this.clas.e_groups_id = this.groupId
       axios.post('/api/e_learning2/class', this.clas)
         .then((res) => {
           if(res.status== 201)
-            this.$router.push({name: 'tc.classlist'});
+            this.$router.push({name: 'tc.classlist'})
           else{
-            this.isMsg = true;
-            this.msg = 'すでに使用されているクラス名，または，パスコードです';
+            this.isMsg = true
+            this.msg = 'すでに使用されているクラス名，または，パスコードです'
           }
-        });
+        })
     }
   },
   mounted() {
-    this.getgroup();
+    this.getgroup()
   }
 }
 </script>

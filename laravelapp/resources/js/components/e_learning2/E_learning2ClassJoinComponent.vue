@@ -41,9 +41,9 @@ export default {
               this.$router.push(`/e_learning2/st`)
           }else{
             this.isMsg = true;
-            this.msg = 'パスコードがむこうです';
+            this.msg = 'パスコードがむこうです'
           }
-        });
+        })
     },
     cansel: function() {
             if (this.$store.getters['auth_e_learning2/role'] == 5)

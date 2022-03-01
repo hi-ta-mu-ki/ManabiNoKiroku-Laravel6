@@ -27,7 +27,7 @@
             <div v-else>生徒</div>
           </td>
           <td>
-            <router-link v-bind:to="{name: 'ad.edit', params: {userId: user.id }}">
+            <router-link v-bind:to="{name: 'ad.useredit', params: {userId: user.id }}">
               <button class="btn btn-success">編集</button>
             </router-link>
           </td>
@@ -53,18 +53,18 @@ export default {
         .then((res) => {
           this.users = res.data;
           for(var i = 0; i < this.users.length; i++)
-            if(this.users[i].role != 10) this.users[i].password = null;
+            if(this.users[i].role != 10) this.users[i].password = null
         });
     },
     makeAdmin:function(dialog, id) {
-      axios.delete('/api/e_learning2/ad/' + id);
-      this.getusers();
-      dialog.close();
+      axios.delete('/api/e_learning2/ad/' + id)
+      this.getusers()
+      dialog.close()
     },
     doNothing:function() {
     },
     onAlert:function(id) {
-      let self = this;
+      let self = this
       return {
           ok: function(dialog){self.makeAdmin(dialog, id)},
           cancel: this.doNothing(),
@@ -76,7 +76,7 @@ export default {
     }
   },
   mounted() {
-    this.getusers();
+    this.getusers()
   }
 }
 </script>

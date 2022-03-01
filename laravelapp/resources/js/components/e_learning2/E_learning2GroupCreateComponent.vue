@@ -30,12 +30,12 @@ export default {
       axios.post('/api/e_learning2/group', this.group)
         .then((res) => {
           if(res.status== 201)
-            this.$router.push({name: 'tc.grouplist'});
+            this.$router.push({name: 'tc.grouplist'})
           else{
-            this.isMsg = true;
-            this.msg = 'すでに使用されているグループ名です';
+            this.isMsg = true
+            this.msg = 'すでに使用されているグループ名です'
           }
-        });
+        })
     }
   }
 }

@@ -45,7 +45,7 @@
             </td>
             <td>
               <div v-if="question.q_no != 0">
-                <router-link v-bind:to="{name: 'tc.show', params: {questionId: question.id }}">
+                <router-link v-bind:to="{name: 'tc.questionshow', params: {questionId: question.id }}">
                   <button class="btn btn-primary">プレビュー</button>
                 </router-link>
               </div>
@@ -56,7 +56,7 @@
               </div>
             </td>
             <td>
-              <router-link v-bind:to="{name: 'tc.edit', params: {questionId: question.id }}">
+              <router-link v-bind:to="{name: 'tc.questionedit', params: {questionId: question.id }}">
                 <button class="btn btn-success">編集</button>
               </router-link>
             </td>
@@ -86,38 +86,38 @@ export default {
     getGroupsMenu() {
       axios.get('/api/e_learning2/groups_menu')
         .then((res) => {
-          this.groups_menus = res.data;
-        });
+          this.groups_menus = res.data
+        })
     },
     jump1: function() {
       this.$store.commit('auth_e_learning2/setE_Groups_Id', this.e_groups_id)
       this.isGroupSelect = true
-      this.getQuestionsMenu();
+      this.getQuestionsMenu()
     },
     getQuestionsMenu() {
       axios.get('/api/e_learning2/section_menu1/' + this.$store.getters['auth_e_learning2/e_groups_id'])
         .then((res) => {
-          this.questions_menu = res.data;
+          this.questions_menu = res.data
         });
     },
     getQuestions() {
       axios.get('/api/e_learning2/question/'+ this.$store.getters['auth_e_learning2/e_groups_id'] +'/' + this.no)
         .then((res) => {
-          this.questions = res.data;
+          this.questions = res.data
         });
     },
     deleteQuestion(id) {
       axios.delete('/api/e_learning2/question/' + id)
         .then((res) => {
-          this.getQuestions();
+          this.getQuestions()
         });
     },
     jump2: function() {
-      this.getQuestions();
+      this.getQuestions()
     },
   },
   mounted() {
-    this.getGroupsMenu();
+    this.getGroupsMenu()
   }
 }
 </script>

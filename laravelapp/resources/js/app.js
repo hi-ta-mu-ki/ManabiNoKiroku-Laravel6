@@ -94,28 +94,28 @@ const router = new VueRouter({
           },
           {
             path: 'question',
-            name: 'tc.list',
+            name: 'tc.questionlist',
             component: E_learning2QuestionListComponent
           },
           {
             path: 'question/:questionId',
-            name: 'tc.show',
+            name: 'tc.questionshow',
             component: E_learning2QuestionShowComponent,
             props: true
           },
           {
             path: 'question/create',
-            name: 'tc.create',
+            name: 'tc.questioncreate',
             component: E_learning2QuestionCreateComponent
           },
           {
             path: 'question/import',
-            name: 'tc.import',
+            name: 'tc.questionimport',
             component: E_learning2QuestionCsvComponent
           },
           {
             path: 'question/:questionId',
-            name: 'tc.edit',
+            name: 'tc.questionedit',
             component: E_learning2QuestionEditComponent,
             props: true
           },
@@ -197,7 +197,7 @@ const router = new VueRouter({
         children: [
           {
             path: '',
-            name: 'st.question2',
+            name: 'st.question',
             component: E_learning2StQuestionComponent,
             props: true
           },
@@ -218,22 +218,22 @@ const router = new VueRouter({
         children: [
           {
             path: '',
-            name: 'ad.list',
+            name: 'ad.userlist',
             component: E_learning2UserListComponent
           },
           {
-            path: 'create',
-            name: 'ad.create',
+            path: 'usercreate',
+            name: 'ad.usercreate',
             component: E_learning2UserCreateComponent
           },
           {
-            path: 'import',
-            name: 'ad.import',
+            path: 'userimport',
+            name: 'ad.userimport',
             component: E_learning2UserCsvComponent
           },
           {
             path: ':userId',
-            name: 'ad.edit',
+            name: 'ad.useredit',
             component: E_learning2UserEditComponent,
             props: true
           },
