@@ -20,7 +20,7 @@
     </div>
     <div class="row justify-content-center" v-if="no==null">
       <div class="col-sm-12 h1">
-        <div class="text-center">うえのメニューからグループ，つぎにセクションをえらんでください。</div>
+        <div class="text-center">うえのメニューからクラス，つぎにセクションをえらんでください。</div>
      </div>
     </div>
     <div class="row justify-content-center" v-else-if="!answered">
