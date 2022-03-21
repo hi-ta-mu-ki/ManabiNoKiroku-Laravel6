@@ -49,7 +49,7 @@ import E_learning2UserCsvComponent from "./components/e_learning2/E_learning2Use
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+window.Vue = require('vue').default;
 
 Vue.use(VueRouter);
 Vue.use(TextareaAutosize);
