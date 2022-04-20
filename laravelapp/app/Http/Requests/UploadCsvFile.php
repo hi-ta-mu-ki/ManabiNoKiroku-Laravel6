@@ -27,7 +27,7 @@ class UploadCsvFile extends FormRequest
            'csvfile' => [
                'required',  // 必須
                'file',  // ファイルであること
-               'mimetypes:text/plain',  // ファイルタイプは text であること
+               'mimetypes:text/csv',  // ファイルタイプは text/csv であること
             ],
         ];
     }

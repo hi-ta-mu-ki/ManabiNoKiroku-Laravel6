@@ -318,7 +318,7 @@ class E_learning2Controller extends Controller
       if($e_class != null) return response($request, 400);
     }
     $e_class = E_class::where('name', $request->name)->first();
-    if($e_class != null) return response($request, 400);
+    if($e_class == null) return response($request, 400);
     $class = new E_class;
     $class->e_groups_id = $request->e_groups_id;
     $class->name = $request->name;
@@ -339,7 +339,7 @@ class E_learning2Controller extends Controller
       if($e_class != null) return response($request, 400);
     }
     $e_class = E_class::where('name', $request->name)->first();
-    if($e_class != null) return response($request, 400);
+    if($e_class == null) return response($request, 400);
     $id->update($request->all());
     return response($id, 200);
   }

@@ -42,10 +42,10 @@
     <div class="mt-1 mb-1 ml-1">
       <table border="1">
         <tr>
-          <td>名前</td>
-          <td>メールアドレス</td>
-          <td>パスワード</td>
-          <td>役割</td>
+          <td scope="col">名前</td>
+          <td scope="col">メールアドレス</td>
+          <td scope="col">パスワード</td>
+          <td scope="col">役割</td>
         </tr>
         <tr v-for="(user, index) in users" :key="index">
           <td v-for="(column, index) in user" :key="index">{{ column }}</td>
@@ -92,6 +92,7 @@ export default {
         this.reset()
         return false
       }
+      this.filename = this.u_csv[0].name
       let reader = new FileReader();
       reader.readAsText(this.u_csv[0], "Shift_JIS");
       reader.onload = () => {

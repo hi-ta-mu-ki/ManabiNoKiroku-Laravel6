@@ -43,7 +43,7 @@
           <span v-if="currentQuestion.exp1 != null"><div class="ml-3">　1 . <span v-html="$sanitize(currentQuestion.exp1)"></span></div></span>
           <span v-if="currentQuestion.exp2 != null"><div class="ml-3">　2 . <span v-html="$sanitize(currentQuestion.exp2)"></span></div></span>
           <span v-if="currentQuestion.exp3 != null"><div class="ml-3">　3 . <span v-html="$sanitize(currentQuestion.exp3)"></span></div></span>
-          <span v-if="currentQuestion.exp4 != null"><div class="ml-3">　4 . <span v-html="$sanitize(urrentQuestion.exp4)"></span></div></span>
+          <span v-if="currentQuestion.exp4 != null"><div class="ml-3">　4 . <span v-html="$sanitize(currentQuestion.exp4)"></span></div></span>
           <span v-if="currentQuestion.exp0 != null"><div class="ml-3"><span v-html="$sanitize(currentQuestion.exp0)"></span></div></span>
         </h4>
       </div>

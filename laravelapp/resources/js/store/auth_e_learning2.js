@@ -43,6 +43,7 @@ const actions = {
 
     if (response.status === OK) {
       context.commit('setApiStatus', true)
+      response.data.password_raw = null
       context.commit('setUser', response.data)
       return false
     }

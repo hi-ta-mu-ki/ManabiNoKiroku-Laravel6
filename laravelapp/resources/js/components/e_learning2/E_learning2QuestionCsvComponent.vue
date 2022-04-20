@@ -40,20 +40,20 @@
     <div class="mt-1 mb-1 ml-1">
       <table border="1">
         <tr>
-          <td>グループ番号</td>
-          <td>セクション番号</td>
-          <td>問題番号</td>
-          <td>問題</td>
-          <td>解答群1</td>
-          <td>解答群2</td>
-          <td>解答群3</td>
-          <td>解答群</td>
-          <td>正解</td>
-          <td>解説1</td>
-          <td>解説2</td>
-          <td>解説3</td>
-          <td>解説4</td>
-          <td>解説</td>
+          <td scope="col">グループ番号</td>
+          <td scope="col">セクション番号</td>
+          <td scope="col">問題番号</td>
+          <td scope="col">問題</td>
+          <td scope="col">解答群1</td>
+          <td scope="col">解答群2</td>
+          <td scope="col">解答群3</td>
+          <td scope="col">解答群</td>
+          <td scope="col">正解</td>
+          <td scope="col">解説1</td>
+          <td scope="col">解説2</td>
+          <td scope="col">解説3</td>
+          <td scope="col">解説4</td>
+          <td scope="col">解説</td>
         </tr>
         <tr v-for="(question, index) in questions" :key="index">
           <td v-for="(column, index) in question" :key="index" v-html="column"></td>
@@ -183,7 +183,7 @@
         }
         this.reset()
         this.$emit('input', false)
-        this.$router.push(`/e_learning2/tc/questionlist`)
+        this.$router.push(`/e_learning2/tc/question`)
       }
     }
   }
