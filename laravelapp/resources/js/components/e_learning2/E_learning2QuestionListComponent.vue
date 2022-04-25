@@ -45,7 +45,7 @@
             </td>
             <td>
               <div v-if="question.q_no != 0">
-                <router-link v-bind:to="{name: 'tc.questionshow', params: {questionId: question.id }}">
+                <router-link v-bind:to="{name: 'tc.questionshow', params: {questionId: question.id, no: question.no, q_no: question.q_no}}">
                   <button class="btn btn-primary">プレビュー</button>
                 </router-link>
               </div>

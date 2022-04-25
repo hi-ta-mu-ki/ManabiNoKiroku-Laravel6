@@ -157,6 +157,7 @@ export default {
       formData.append('s_id', this.s_id)
       formData.append('no', this.no)
       formData.append('q_no', this.questionIndex + 1)
+      formData.append('ans', index)
       let correct
       if(this.questions[this.questionIndex].ans == index){
         correct = 1

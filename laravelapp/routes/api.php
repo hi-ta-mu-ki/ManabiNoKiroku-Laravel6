@@ -29,6 +29,7 @@ Route::post('/e_learning2/question/import', 'E_learning2Controller@question_impo
 Route::post('/e_learning2/question/import2', 'E_learning2Controller@question_import2');
 Route::post('/e_learning2/question/upload', 'E_learning2Controller@question_upload');
 Route::get('/e_learning2/question/answer/{e_groups_id}/{no}', 'E_learning2Controller@question_answer_list');
+Route::get('/e_learning2/question/answer_g/{e_groups_id}/{no}/{q_no}', 'E_learning2Controller@question_answer_graph');
 //グループ
 Route::get('/e_learning2/groups_menu', 'E_learning2Controller@groups_menu');
 Route::get('/e_learning2/group', 'E_learning2Controller@group_index');

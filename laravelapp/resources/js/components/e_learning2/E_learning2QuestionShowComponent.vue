@@ -48,20 +48,31 @@
         </h4>
       </div>
     </div>
+    <hr>
+    <div class="text-center mt-5">
+      <button class="btn btn-warning" @click="openModal">解答データ（グラフ）</button>
+      <AnswerGraph :no="no" :q_no="q_no" @from-child="closeModal" />
+    </div>
   </div>
 </template>
 
 <script>
+import AnswerGraph from './E_learning2AnswerGraphComponent.vue'
 export default {
   props: {
-    questionId: 0
+    questionId: 0,
+    no: 0,
+    q_no: 0
+  },
+  components: {
+    AnswerGraph
   },
   data: function () {
     return {
       answers: [],
       questions: [],
       answered: false,
-      correct: 0,
+      correct: 0
     }
   },
   methods: {
@@ -75,7 +86,13 @@ export default {
       this.answers.push(index)
       return this.answered = true
     },
+    openModal: function(){
+      this.$modal.show('modal_answer_graph');
     },
+    closeModal: function(){
+      this.$modal.hide('modal_answer_graph');
+    }
+  },
   computed: {
     currentQuestion: function() {
       return this.questions

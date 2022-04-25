@@ -41,7 +41,7 @@ export default {
               this.$router.push(`/e_learning2/st`)
           }else{
             this.isMsg = true;
-            this.msg = 'パスコードがむこうです'
+            this.msg = 'パスコードがむこうか，すでにとうろくしています'
           }
         })
     },

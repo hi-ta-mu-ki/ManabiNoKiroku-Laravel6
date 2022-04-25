@@ -217,6 +217,20 @@ class E_learning2Controller extends Controller
     return $answer_lists;
   }
 
+  public function question_answer_graph($e_groups_id, $no, $q_no)
+  {
+    $e_classes_id = E_class::where('e_groups_id', $e_groups_id)->select('id')->getQuery();
+    $answers = E_answer::whereIn('e_classes_id', $e_classes_id)->where('no', $no)->where('q_no', $q_no)->get();
+    $answer_count = array(array());
+    for($i = 0; $i < 4; $i++){
+      $answer_count[$i] = 0;
+    }
+    foreach($answers as $answer){
+      $answer_count[$answer->ans - 1]++;
+    }
+    return $answer_count;
+  }
+
   public function groups_menu()
   {
     $user_id = Auth::user()->id;
@@ -387,7 +401,8 @@ class E_learning2Controller extends Controller
   {
     if($request->pass_code != null){
       $e_class = E_class::where('pass_code', $request->pass_code)->first();
-      if($e_class == null || $e_class->updated_at < date("Y-m-d",strtotime("-10 day"))) return response($request, 400);
+      $user = E_member::where('user_id', Auth::user()->id)->first();
+      if($e_class == null || $e_class->updated_at < date("Y-m-d",strtotime("-10 day")) || $user != null) return response($request, 400);
       else{
         $e_member = new E_member;
         $e_member->user_id = Auth::user()->id;
@@ -492,6 +507,7 @@ class E_learning2Controller extends Controller
     $e_answer->s_id = $request->s_id;
     $e_answer->no = $request->no;
     $e_answer->q_no = $request->q_no;
+    $e_answer->ans = $request->ans;
     $e_answer->correct = $request->correct;
     $e_answer->save();
     return  response($request, 201);
